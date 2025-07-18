@@ -5,7 +5,7 @@ A user-friendly, asynchronous Python 3 wrapper for the [LeakRadar.io](https://le
 
 ## Documentation
 
-See the full API documentation here: <https://api.leakradar.io/docs>
+See the full API documentation here: <https://docs.leakradar.io>
 
 ## Features
 

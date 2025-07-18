@@ -17,7 +17,7 @@ async def main():
 
         # Unlock all leaks matching advanced search filters
         unlocked_leaks = await client.unlock_all_advanced(
-            {"username": "john.doe@example.com"},
+            {"username": ["john.doe@example.com"]},
             max_leaks=10
         )
         print("Unlocked Leaks:", unlocked_leaks)
@@ -39,7 +39,7 @@ async def main():
         print("Domain Employees:", domain_employees)
 
         # Unlock specific leaks by ID
-        leaks_to_unlock = ["ID12345", "ID67890"]  # Replace with actual leak IDs
+        leaks_to_unlock = ["bcaeef31cd13a480fc577cc3bb9f71077679f65c39e513f5549a964be3755ad0", "03e9134b776b2cb09b08d990874e6f6aeb7a953a663e515143325fb4fa708734"]  # Replace with actual leak IDs
         unlocked_specific_leaks = await client.unlock_specific_leaks(leaks_to_unlock)
         print("Unlocked Specific Leaks:", unlocked_specific_leaks)
 
