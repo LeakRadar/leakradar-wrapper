@@ -16,7 +16,10 @@ async def main():
         print("Advanced Search Results:", advanced_search_results)
 
         # Unlock all leaks matching advanced search filters
-        unlocked_leaks = await client.unlock_all_advanced({"username": "john.doe@example.com", "max_leaks": 10})
+        unlocked_leaks = await client.unlock_all_advanced(
+            {"username": "john.doe@example.com"},
+            max_leaks=10
+        )
         print("Unlocked Leaks:", unlocked_leaks)
 
         # Request an export of advanced search results
