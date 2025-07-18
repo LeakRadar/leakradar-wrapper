@@ -3,4 +3,4 @@
 from .client import LeakRadarClient
 
 __all__ = ["LeakRadarClient"]
-__version__ = "0.1.1"
+__version__ = "0.1.2"
