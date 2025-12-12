@@ -24,6 +24,8 @@ __all__ = [
     "ValidationError",
     "ConflictError",
     "PaymentRequiredError",
+    "__version__",
 ]
 
-__version__ = "0.1.4"
+# Bumped because the updated OpenAPI introduces breaking changes (notably several GET -> POST).
+__version__ = "0.1.5"
