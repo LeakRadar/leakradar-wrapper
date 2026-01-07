@@ -7,7 +7,7 @@ A user-friendly, asynchronous Python 3 wrapper for the [LeakRadar.io](https://le
 > - Async API via `httpx`
 > - Automatic JSON decoding (prefers `ujson` if installed)
 > - Binary-safe downloads (CSV/TXT/PDF/ZIP)
-> - Full coverage for Advanced, Domain, Email, Metadata, Raw search, Exports, Notifications, Unlocked & Lists, Tasks, Stats
+> - Full coverage for Advanced, Domain, Email, Raw search, Exports, Notifications, Unlocked & Lists, Tasks, Stats
 
 ## Documentation
 

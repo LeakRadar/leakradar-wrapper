@@ -24,7 +24,6 @@ async def main():
             "advanced": plan_flag(plan, "advanced_search"),
             "domain": plan_flag(plan, "domain_search"),
             "email": plan_flag(plan, "email_search"),
-            "metadata": plan_flag(plan, "metadata_search"),
             "raw": plan_flag(plan, "raw_search"),
         }
         print(f"Profile: {profile['email']} | Plan: {plan_name} | Gates: {gates}")
@@ -84,18 +83,6 @@ async def main():
                 print(f"Email error: {e}")
         else:
             print_skip("Email", plan_name)
-
-        if gates["metadata"]:
-            try:
-                meta = await client.search_metadata({"title": ["Tesla"]}, page_size=50)
-                print("Metadata total:", meta.get("total", 0))
-
-                meta_urls_export = await client.export_metadata_urls({"title": ["Tesla"]}, format="csv")
-                print("Metadata URLs export queued:", meta_urls_export)
-            except LeakRadarAPIError as e:
-                print(f"Metadata error: {e}")
-        else:
-            print_skip("Metadata", plan_name)
 
         if gates["raw"]:
             try:

@@ -27,5 +27,4 @@ __all__ = [
     "__version__",
 ]
 
-# Bumped because the updated OpenAPI introduces breaking changes (notably several GET -> POST).
-__version__ = "0.1.5"
+__version__ = "0.1.6"

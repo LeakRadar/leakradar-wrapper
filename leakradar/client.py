@@ -112,7 +112,7 @@ class LeakRadarClient:
     def __init__(
         self,
         token: Optional[str] = None,
-        user_agent: str = "LeakRadar-Python-Client/0.2.0",
+        user_agent: str = "LeakRadar-Python-Client/0.1.6",
         timeout: float = 30.0,
     ):
         """
@@ -681,72 +681,6 @@ class LeakRadarClient:
         return await self._request("POST", "/search/emails/locked-exists", json=payload)
 
     # -------------------------
-    # Search (Metadata)
-    # -------------------------
-
-    async def search_metadata(self, filters: Dict[str, Any], page: int = 1, page_size: int = 100) -> Dict[str, Any]:
-        params = self._clean({"page": page, "page_size": page_size})
-        return await self._request("POST", "/search/metadata", params=params, json=filters)
-
-    async def export_metadata_search(self, filters: Dict[str, Any], format: Optional[str] = None) -> Dict[str, Any]:
-        params = self._clean({"format": format})
-        return await self._request("POST", "/search/metadata/export", params=params, json=filters)
-
-    async def export_metadata_urls(self, filters: Dict[str, Any], format: Optional[str] = None) -> Dict[str, Any]:
-        params = self._clean({"format": format})
-        return await self._request("POST", "/search/metadata/export_urls", params=params, json=filters)
-
-    async def metadata_detail(self, meta_id: str) -> Dict[str, Any]:
-        return await self._request("GET", f"/search/metadata/{meta_id}")
-
-    async def metadata_leaks(
-        self,
-        meta_id: str,
-        page: int = 1,
-        page_size: int = 100,
-        search: Optional[str] = None,
-        is_email: Optional[bool] = None,
-    ) -> Dict[str, Any]:
-        params = self._clean({"page": page, "page_size": page_size, "search": search, "is_email": is_email})
-        return await self._request("GET", f"/search/metadata/{meta_id}/leaks", params=params)
-
-    async def metadata_leaks_count(self, meta_id: str) -> Dict[str, Any]:
-        return await self._request("GET", f"/search/metadata/{meta_id}/leaks/count")
-
-    async def unlock_metadata_leaks(
-        self,
-        meta_id: str,
-        max_leaks: Optional[int] = None,
-        search: Optional[str] = None,
-        is_email: Optional[bool] = None,
-        list_id: Optional[int] = None,
-    ) -> List[Dict[str, Any]]:
-        params = self._clean({"max": max_leaks, "search": search, "is_email": is_email, "list_id": list_id})
-        return await self._request("POST", f"/search/metadata/{meta_id}/leaks/unlock", params=params)
-
-    async def queue_metadata_unlock_task(
-        self,
-        meta_id: str,
-        max_leaks: Optional[int] = None,
-        search: Optional[str] = None,
-        is_email: Optional[bool] = None,
-        list_id: Optional[int] = None,
-    ) -> Dict[str, Any]:
-        params = self._clean({"max": max_leaks, "search": search, "is_email": is_email, "list_id": list_id})
-        return await self._request("POST", f"/search/metadata/{meta_id}/leaks/unlock/task", params=params)
-
-    async def export_metadata_leaks(
-        self,
-        meta_id: str,
-        search: Optional[str] = None,
-        is_email: Optional[bool] = None,
-        format: Optional[str] = None,
-    ) -> Dict[str, Any]:
-        params = self._clean({"format": format})
-        body = self._clean({"search": search, "is_email": is_email})
-        return await self._request("POST", f"/search/metadata/{meta_id}/leaks/export", params=params, json=body)
-
-    # -------------------------
     # Unlocked leaks (profile)
     # -------------------------
 
@@ -892,6 +826,10 @@ class LeakRadarClient:
 
     async def test_notification_method(self, data: Dict[str, Any]) -> Any:
         return await self._request("POST", "/notification_methods/test", json=data)
+
+    async def test_notification_method_with_data(self, method_id: int, data: Dict[str, Any]) -> Any:
+        """Test an existing notification method with custom data."""
+        return await self._request("POST", f"/notification_methods/{method_id}/test-with-data", json=data)
 
     async def list_notifications(self) -> List[Dict[str, Any]]:
         return await self._request("GET", "/notifications")
