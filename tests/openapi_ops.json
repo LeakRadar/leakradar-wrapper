@@ -1,0 +1,1628 @@
+{
+ "api_version": "1.0.0",
+ "operations": {
+  "DELETE /notification_methods/{method_id}": {
+   "body": [],
+   "path": [
+    "method_id"
+   ],
+   "query": []
+  },
+  "DELETE /notifications/bulk": {
+   "body": [
+    "ids"
+   ],
+   "path": [],
+   "query": []
+  },
+  "DELETE /notifications/{notification_id}": {
+   "body": [],
+   "path": [
+    "notification_id"
+   ],
+   "query": []
+  },
+  "DELETE /profile/team/members/{member_id}": {
+   "body": [],
+   "path": [
+    "member_id"
+   ],
+   "query": []
+  },
+  "DELETE /profile/unlocked/combolists/{leak_id}/comment": {
+   "body": [],
+   "path": [
+    "leak_id"
+   ],
+   "query": []
+  },
+  "DELETE /profile/unlocked/lists/{list_id}": {
+   "body": [],
+   "path": [
+    "list_id"
+   ],
+   "query": []
+  },
+  "DELETE /profile/unlocked/{leak_id}/comment": {
+   "body": [],
+   "path": [
+    "leak_id"
+   ],
+   "query": []
+  },
+  "GET /container/file_info": {
+   "body": [],
+   "path": [],
+   "query": [
+    "container_id",
+    "entry_path"
+   ]
+  },
+  "GET /container/subfolders": {
+   "body": [],
+   "path": [],
+   "query": [
+    "container_id",
+    "prefix",
+    "page",
+    "page_size"
+   ]
+  },
+  "GET /container/tree": {
+   "body": [],
+   "path": [],
+   "query": [
+    "container_id",
+    "prefix",
+    "page",
+    "page_size"
+   ]
+  },
+  "GET /exports": {
+   "body": [],
+   "path": [],
+   "query": [
+    "page",
+    "page_size"
+   ]
+  },
+  "GET /live-stats": {
+   "body": [],
+   "path": [],
+   "query": []
+  },
+  "GET /notification_methods": {
+   "body": [],
+   "path": [],
+   "query": []
+  },
+  "GET /notification_runs": {
+   "body": [],
+   "path": [],
+   "query": [
+    "page",
+    "page_size",
+    "dataset",
+    "status",
+    "sent_after",
+    "sent_before",
+    "notification_id",
+    "q"
+   ]
+  },
+  "GET /notification_runs/{run_id}": {
+   "body": [],
+   "path": [
+    "run_id"
+   ],
+   "query": []
+  },
+  "GET /notification_runs/{run_id}/export": {
+   "body": [],
+   "path": [
+    "run_id"
+   ],
+   "query": [
+    "search",
+    "is_email",
+    "format"
+   ]
+  },
+  "GET /notification_runs/{run_id}/items": {
+   "body": [],
+   "path": [
+    "run_id"
+   ],
+   "query": [
+    "page",
+    "page_size"
+   ]
+  },
+  "GET /notifications": {
+   "body": [],
+   "path": [],
+   "query": []
+  },
+  "GET /notifications/stats": {
+   "body": [],
+   "path": [],
+   "query": []
+  },
+  "GET /password-range": {
+   "body": [],
+   "path": [],
+   "query": [
+    "prefix",
+    "limit",
+    "suffix_only"
+   ]
+  },
+  "GET /profile": {
+   "body": [],
+   "path": [],
+   "query": []
+  },
+  "GET /profile/activities/balance-logs": {
+   "body": [],
+   "path": [],
+   "query": [
+    "page",
+    "page_size",
+    "order_by",
+    "order_dir",
+    "q",
+    "kind",
+    "direction",
+    "date_from",
+    "date_to"
+   ]
+  },
+  "GET /profile/activities/tasks": {
+   "body": [],
+   "path": [],
+   "query": [
+    "page",
+    "page_size",
+    "order_by",
+    "order_dir",
+    "q",
+    "status",
+    "kind",
+    "scope",
+    "date_from",
+    "date_to"
+   ]
+  },
+  "GET /profile/preferences": {
+   "body": [],
+   "path": [],
+   "query": []
+  },
+  "GET /profile/raw/downloads": {
+   "body": [],
+   "path": [],
+   "query": [
+    "page",
+    "page_size",
+    "search",
+    "status"
+   ]
+  },
+  "GET /profile/raw/unlocked-parts": {
+   "body": [],
+   "path": [],
+   "query": [
+    "page",
+    "page_size",
+    "q"
+   ]
+  },
+  "GET /profile/team": {
+   "body": [],
+   "path": [],
+   "query": []
+  },
+  "GET /profile/unlocked": {
+   "body": [],
+   "path": [],
+   "query": [
+    "page",
+    "page_size",
+    "search",
+    "is_email",
+    "list_id",
+    "list_none",
+    "status"
+   ]
+  },
+  "GET /profile/unlocked/advanced": {
+   "body": [],
+   "path": [],
+   "query": [
+    "page",
+    "page_size",
+    "search",
+    "list_id",
+    "list_none",
+    "status",
+    "username",
+    "username_not",
+    "username_match_type",
+    "username_not_match_type",
+    "password",
+    "password_not",
+    "password_match_type",
+    "password_not_match_type",
+    "url",
+    "url_not",
+    "url_match_type",
+    "url_not_match_type",
+    "url_domain",
+    "url_domain_not",
+    "url_domain_match_type",
+    "url_domain_not_match_type",
+    "url_host",
+    "url_host_not",
+    "url_host_match_type",
+    "url_host_not_match_type",
+    "username_hash",
+    "password_hash",
+    "url_scheme",
+    "url_scheme_not",
+    "url_port",
+    "url_port_not",
+    "url_tld",
+    "url_tld_not",
+    "is_email",
+    "email_domain",
+    "email_domain_not",
+    "email_domain_match_type",
+    "email_domain_not_match_type",
+    "email_host",
+    "email_host_not",
+    "email_host_match_type",
+    "email_host_not_match_type",
+    "email_tld",
+    "email_tld_not",
+    "password_strength",
+    "added_from",
+    "added_to",
+    "force_and"
+   ]
+  },
+  "GET /profile/unlocked/combolists": {
+   "body": [],
+   "path": [],
+   "query": [
+    "page",
+    "page_size",
+    "search",
+    "is_email",
+    "list_id",
+    "list_none",
+    "status",
+    "unlocked_at_min"
+   ]
+  },
+  "GET /profile/unlocked/list-tasks/{task_id}": {
+   "body": [],
+   "path": [
+    "task_id"
+   ],
+   "query": []
+  },
+  "GET /profile/unlocked/lists": {
+   "body": [],
+   "path": [],
+   "query": [
+    "with_counts",
+    "dataset"
+   ]
+  },
+  "GET /profile/usage": {
+   "body": [],
+   "path": [],
+   "query": []
+  },
+  "GET /raw/download/preview": {
+   "body": [],
+   "path": [],
+   "query": [
+    "sha256_original",
+    "container_id",
+    "entry_path"
+   ]
+  },
+  "GET /raw/files": {
+   "body": [],
+   "path": [],
+   "query": []
+  },
+  "GET /search/applications": {
+   "body": [],
+   "path": [],
+   "query": [
+    "q",
+    "limit"
+   ]
+  },
+  "GET /search/applications/{package}/leaks": {
+   "body": [],
+   "path": [
+    "package"
+   ],
+   "query": [
+    "search",
+    "is_email",
+    "page",
+    "page_size",
+    "auto_unlock"
+   ]
+  },
+  "GET /search/combolist/domain/{domain}": {
+   "body": [],
+   "path": [
+    "domain"
+   ],
+   "query": [
+    "search",
+    "page",
+    "page_size",
+    "auto_unlock"
+   ]
+  },
+  "GET /search/combolist/domain/{domain}/report": {
+   "body": [],
+   "path": [
+    "domain"
+   ],
+   "query": []
+  },
+  "GET /search/dark-web/post/{post_id}": {
+   "body": [],
+   "path": [
+    "post_id"
+   ],
+   "query": []
+  },
+  "GET /search/dark-web/sources": {
+   "body": [],
+   "path": [],
+   "query": []
+  },
+  "GET /search/dark-web/stats": {
+   "body": [],
+   "path": [],
+   "query": []
+  },
+  "GET /search/domain/{domain}": {
+   "body": [],
+   "path": [
+    "domain"
+   ],
+   "query": [
+    "light",
+    "include_search_count"
+   ]
+  },
+  "GET /search/domain/{domain}/all": {
+   "body": [],
+   "path": [
+    "domain"
+   ],
+   "query": [
+    "search",
+    "is_email",
+    "page",
+    "page_size",
+    "auto_unlock"
+   ]
+  },
+  "GET /search/domain/{domain}/customers": {
+   "body": [],
+   "path": [
+    "domain"
+   ],
+   "query": [
+    "page",
+    "page_size",
+    "search",
+    "is_email",
+    "auto_unlock"
+   ]
+  },
+  "GET /search/domain/{domain}/employees": {
+   "body": [],
+   "path": [
+    "domain"
+   ],
+   "query": [
+    "search",
+    "is_email",
+    "page",
+    "page_size",
+    "auto_unlock"
+   ]
+  },
+  "GET /search/domain/{domain}/report/pdf": {
+   "body": [],
+   "path": [
+    "domain"
+   ],
+   "query": []
+  },
+  "GET /search/domain/{domain}/subdomains": {
+   "body": [],
+   "path": [
+    "domain"
+   ],
+   "query": [
+    "search",
+    "page",
+    "page_size"
+   ]
+  },
+  "GET /search/domain/{domain}/third_parties": {
+   "body": [],
+   "path": [
+    "domain"
+   ],
+   "query": [
+    "page",
+    "page_size",
+    "search",
+    "is_email",
+    "auto_unlock"
+   ]
+  },
+  "GET /search/domain/{domain}/urls": {
+   "body": [],
+   "path": [
+    "domain"
+   ],
+   "query": [
+    "search",
+    "page",
+    "page_size"
+   ]
+  },
+  "GET /search/raw/part": {
+   "body": [],
+   "path": [],
+   "query": [
+    "container_id",
+    "entry_path",
+    "seq",
+    "trim_overlap",
+    "overlap_chars",
+    "auto_unlock"
+   ]
+  },
+  "GET /search/raw/parts": {
+   "body": [],
+   "path": [],
+   "query": [
+    "container_id",
+    "entry_path",
+    "page",
+    "page_size"
+   ]
+  },
+  "GET /stats": {
+   "body": [],
+   "path": [],
+   "query": []
+  },
+  "GET /tasks/{task_id}": {
+   "body": [],
+   "path": [
+    "task_id"
+   ],
+   "query": []
+  },
+  "GET /transparency-stats": {
+   "body": [],
+   "path": [],
+   "query": []
+  },
+  "PATCH /notification_methods/{method_id}": {
+   "body": [
+    "extra_emails",
+    "headers",
+    "name",
+    "second_value",
+    "type",
+    "value"
+   ],
+   "path": [
+    "method_id"
+   ],
+   "query": []
+  },
+  "PATCH /notification_methods/{method_id}/active": {
+   "body": [
+    "is_active"
+   ],
+   "path": [
+    "method_id"
+   ],
+   "query": []
+  },
+  "PATCH /notifications/{notification_id}": {
+   "body": [
+    "auto_unlock",
+    "bulk",
+    "dataset",
+    "filters",
+    "max_points",
+    "method_id",
+    "second_type",
+    "type",
+    "value"
+   ],
+   "path": [
+    "notification_id"
+   ],
+   "query": []
+  },
+  "PATCH /notifications/{notification_id}/active": {
+   "body": [
+    "is_active"
+   ],
+   "path": [
+    "notification_id"
+   ],
+   "query": []
+  },
+  "PATCH /profile": {
+   "body": [
+    "address",
+    "address_line2",
+    "city",
+    "country",
+    "first_name",
+    "last_name",
+    "organization",
+    "other_tax_id",
+    "phone",
+    "region",
+    "tva_number",
+    "zip_code"
+   ],
+   "path": [],
+   "query": []
+  },
+  "PATCH /profile/preferences": {
+   "body": [
+    "hide_passwords",
+    "language"
+   ],
+   "path": [],
+   "query": []
+  },
+  "PATCH /profile/team/members/{member_id}": {
+   "body": [
+    "team_role"
+   ],
+   "path": [
+    "member_id"
+   ],
+   "query": []
+  },
+  "PATCH /profile/unlocked/lists/{list_id}": {
+   "body": [
+    "color",
+    "name"
+   ],
+   "path": [
+    "list_id"
+   ],
+   "query": []
+  },
+  "POST /container/tree/resolve_path": {
+   "body": [
+    "container_id",
+    "entry_path",
+    "options"
+   ],
+   "path": [],
+   "query": []
+  },
+  "POST /notification_methods": {
+   "body": [
+    "extra_emails",
+    "headers",
+    "name",
+    "second_value",
+    "type",
+    "value"
+   ],
+   "path": [],
+   "query": []
+  },
+  "POST /notification_methods/test": {
+   "body": [
+    "extra_emails",
+    "headers",
+    "name",
+    "second_value",
+    "type",
+    "value"
+   ],
+   "path": [],
+   "query": []
+  },
+  "POST /notification_methods/{method_id}/test-with-data": {
+   "body": [],
+   "path": [
+    "method_id"
+   ],
+   "query": [
+    "notification_type"
+   ]
+  },
+  "POST /notification_runs/export": {
+   "body": [
+    "exclude_run_ids",
+    "filters",
+    "format",
+    "run_ids"
+   ],
+   "path": [],
+   "query": []
+  },
+  "POST /notification_runs/{run_id}/leaks/unlock": {
+   "body": [],
+   "path": [
+    "run_id"
+   ],
+   "query": [
+    "max",
+    "search",
+    "is_email",
+    "list_id"
+   ]
+  },
+  "POST /notifications": {
+   "body": [
+    "auto_unlock",
+    "bulk",
+    "dataset",
+    "filters",
+    "max_points",
+    "method_id",
+    "second_type",
+    "type",
+    "value"
+   ],
+   "path": [],
+   "query": []
+  },
+  "POST /profile/raw/downloads/{download_id}/file": {
+   "body": [],
+   "path": [
+    "download_id"
+   ],
+   "query": [
+    "token"
+   ]
+  },
+  "POST /profile/team/invitations": {
+   "body": [
+    "email",
+    "name",
+    "role"
+   ],
+   "path": [],
+   "query": []
+  },
+  "POST /profile/team/invitations/{invitation_id}/resend": {
+   "body": [],
+   "path": [
+    "invitation_id"
+   ],
+   "query": []
+  },
+  "POST /profile/team/invitations/{invitation_id}/revoke": {
+   "body": [],
+   "path": [
+    "invitation_id"
+   ],
+   "query": []
+  },
+  "POST /profile/team/leave": {
+   "body": [],
+   "path": [],
+   "query": []
+  },
+  "POST /profile/unlocked/advanced/export": {
+   "body": [
+    "added_from",
+    "added_to",
+    "email_domain",
+    "email_domain_match_type",
+    "email_domain_not",
+    "email_domain_not_match_type",
+    "email_host",
+    "email_host_match_type",
+    "email_host_not",
+    "email_host_not_match_type",
+    "email_tld",
+    "email_tld_not",
+    "force_and",
+    "is_email",
+    "list_id",
+    "list_none",
+    "password",
+    "password_hash",
+    "password_match_type",
+    "password_not",
+    "password_not_match_type",
+    "password_strength",
+    "status",
+    "unlocked_at_min",
+    "url",
+    "url_domain",
+    "url_domain_match_type",
+    "url_domain_not",
+    "url_domain_not_match_type",
+    "url_host",
+    "url_host_match_type",
+    "url_host_not",
+    "url_host_not_match_type",
+    "url_match_type",
+    "url_not",
+    "url_not_match_type",
+    "url_port",
+    "url_port_not",
+    "url_scheme",
+    "url_scheme_not",
+    "url_tld",
+    "url_tld_not",
+    "username",
+    "username_hash",
+    "username_match_type",
+    "username_not",
+    "username_not_match_type"
+   ],
+   "path": [],
+   "query": [
+    "list_id",
+    "list_none",
+    "status",
+    "format",
+    "unlocked_at_min"
+   ]
+  },
+  "POST /profile/unlocked/bulk-status": {
+   "body": [
+    "dataset",
+    "filters",
+    "is_email",
+    "list_id_filter",
+    "list_none",
+    "search",
+    "status_filter",
+    "target_status"
+   ],
+   "path": [],
+   "query": []
+  },
+  "POST /profile/unlocked/combolists/advanced": {
+   "body": [
+    "filters",
+    "is_email",
+    "list_id",
+    "list_none",
+    "search",
+    "status",
+    "unlocked_at_min"
+   ],
+   "path": [],
+   "query": [
+    "page",
+    "page_size"
+   ]
+  },
+  "POST /profile/unlocked/combolists/export": {
+   "body": [
+    "filters",
+    "is_email",
+    "list_id",
+    "list_none",
+    "search",
+    "status",
+    "unlocked_at_min"
+   ],
+   "path": [],
+   "query": [
+    "format"
+   ]
+  },
+  "POST /profile/unlocked/export": {
+   "body": [
+    "is_email",
+    "list_id",
+    "list_none",
+    "search",
+    "status",
+    "unlocked_at_min"
+   ],
+   "path": [],
+   "query": [
+    "format"
+   ]
+  },
+  "POST /profile/unlocked/lists": {
+   "body": [
+    "color",
+    "name"
+   ],
+   "path": [],
+   "query": []
+  },
+  "POST /profile/unlocked/lists/bulk-assign": {
+   "body": [
+    "dataset",
+    "filters",
+    "is_email",
+    "list_id_filter",
+    "list_none",
+    "search",
+    "status_filter",
+    "target_list_id"
+   ],
+   "path": [],
+   "query": []
+  },
+  "POST /profile/unlocked/lists/{list_id}/clear": {
+   "body": [],
+   "path": [
+    "list_id"
+   ],
+   "query": []
+  },
+  "POST /raw/download": {
+   "body": [],
+   "path": [],
+   "query": [
+    "sha256_original",
+    "container_id",
+    "entry_path",
+    "expires_in"
+   ]
+  },
+  "POST /search/advanced": {
+   "body": [
+    "added_from",
+    "added_to",
+    "email_domain",
+    "email_domain_match_type",
+    "email_domain_not",
+    "email_domain_not_match_type",
+    "email_host",
+    "email_host_match_type",
+    "email_host_not",
+    "email_host_not_match_type",
+    "email_tld",
+    "email_tld_not",
+    "force_and",
+    "is_email",
+    "password",
+    "password_hash",
+    "password_match_type",
+    "password_not",
+    "password_not_match_type",
+    "password_strength",
+    "url",
+    "url_domain",
+    "url_domain_match_type",
+    "url_domain_not",
+    "url_domain_not_match_type",
+    "url_host",
+    "url_host_match_type",
+    "url_host_not",
+    "url_host_not_match_type",
+    "url_match_type",
+    "url_not",
+    "url_not_match_type",
+    "url_port",
+    "url_port_not",
+    "url_scheme",
+    "url_scheme_not",
+    "url_tld",
+    "url_tld_not",
+    "username",
+    "username_hash",
+    "username_match_type",
+    "username_not",
+    "username_not_match_type"
+   ],
+   "path": [],
+   "query": [
+    "page",
+    "page_size",
+    "auto_unlock"
+   ]
+  },
+  "POST /search/advanced/export": {
+   "body": [
+    "added_from",
+    "added_to",
+    "email_domain",
+    "email_domain_match_type",
+    "email_domain_not",
+    "email_domain_not_match_type",
+    "email_host",
+    "email_host_match_type",
+    "email_host_not",
+    "email_host_not_match_type",
+    "email_tld",
+    "email_tld_not",
+    "force_and",
+    "is_email",
+    "password",
+    "password_hash",
+    "password_match_type",
+    "password_not",
+    "password_not_match_type",
+    "password_strength",
+    "url",
+    "url_domain",
+    "url_domain_match_type",
+    "url_domain_not",
+    "url_domain_not_match_type",
+    "url_host",
+    "url_host_match_type",
+    "url_host_not",
+    "url_host_not_match_type",
+    "url_match_type",
+    "url_not",
+    "url_not_match_type",
+    "url_port",
+    "url_port_not",
+    "url_scheme",
+    "url_scheme_not",
+    "url_tld",
+    "url_tld_not",
+    "username",
+    "username_hash",
+    "username_match_type",
+    "username_not",
+    "username_not_match_type"
+   ],
+   "path": [],
+   "query": [
+    "format"
+   ]
+  },
+  "POST /search/advanced/export_urls": {
+   "body": [
+    "added_from",
+    "added_to",
+    "email_domain",
+    "email_domain_match_type",
+    "email_domain_not",
+    "email_domain_not_match_type",
+    "email_host",
+    "email_host_match_type",
+    "email_host_not",
+    "email_host_not_match_type",
+    "email_tld",
+    "email_tld_not",
+    "force_and",
+    "is_email",
+    "password",
+    "password_hash",
+    "password_match_type",
+    "password_not",
+    "password_not_match_type",
+    "password_strength",
+    "url",
+    "url_domain",
+    "url_domain_match_type",
+    "url_domain_not",
+    "url_domain_not_match_type",
+    "url_host",
+    "url_host_match_type",
+    "url_host_not",
+    "url_host_not_match_type",
+    "url_match_type",
+    "url_not",
+    "url_not_match_type",
+    "url_port",
+    "url_port_not",
+    "url_scheme",
+    "url_scheme_not",
+    "url_tld",
+    "url_tld_not",
+    "username",
+    "username_hash",
+    "username_match_type",
+    "username_not",
+    "username_not_match_type"
+   ],
+   "path": [],
+   "query": [
+    "format"
+   ]
+  },
+  "POST /search/advanced/unlock": {
+   "body": [
+    "added_from",
+    "added_to",
+    "email_domain",
+    "email_domain_match_type",
+    "email_domain_not",
+    "email_domain_not_match_type",
+    "email_host",
+    "email_host_match_type",
+    "email_host_not",
+    "email_host_not_match_type",
+    "email_tld",
+    "email_tld_not",
+    "force_and",
+    "is_email",
+    "password",
+    "password_hash",
+    "password_match_type",
+    "password_not",
+    "password_not_match_type",
+    "password_strength",
+    "url",
+    "url_domain",
+    "url_domain_match_type",
+    "url_domain_not",
+    "url_domain_not_match_type",
+    "url_host",
+    "url_host_match_type",
+    "url_host_not",
+    "url_host_not_match_type",
+    "url_match_type",
+    "url_not",
+    "url_not_match_type",
+    "url_port",
+    "url_port_not",
+    "url_scheme",
+    "url_scheme_not",
+    "url_tld",
+    "url_tld_not",
+    "username",
+    "username_hash",
+    "username_match_type",
+    "username_not",
+    "username_not_match_type"
+   ],
+   "path": [],
+   "query": [
+    "max",
+    "list_id"
+   ]
+  },
+  "POST /search/advanced/unlock/task": {
+   "body": [
+    "added_from",
+    "added_to",
+    "email_domain",
+    "email_domain_match_type",
+    "email_domain_not",
+    "email_domain_not_match_type",
+    "email_host",
+    "email_host_match_type",
+    "email_host_not",
+    "email_host_not_match_type",
+    "email_tld",
+    "email_tld_not",
+    "force_and",
+    "is_email",
+    "password",
+    "password_hash",
+    "password_match_type",
+    "password_not",
+    "password_not_match_type",
+    "password_strength",
+    "url",
+    "url_domain",
+    "url_domain_match_type",
+    "url_domain_not",
+    "url_domain_not_match_type",
+    "url_host",
+    "url_host_match_type",
+    "url_host_not",
+    "url_host_not_match_type",
+    "url_match_type",
+    "url_not",
+    "url_not_match_type",
+    "url_port",
+    "url_port_not",
+    "url_scheme",
+    "url_scheme_not",
+    "url_tld",
+    "url_tld_not",
+    "username",
+    "username_hash",
+    "username_match_type",
+    "username_not",
+    "username_not_match_type"
+   ],
+   "path": [],
+   "query": [
+    "max",
+    "list_id"
+   ]
+  },
+  "POST /search/applications/{package}/export": {
+   "body": [
+    "format",
+    "is_email",
+    "search"
+   ],
+   "path": [
+    "package"
+   ],
+   "query": [
+    "search",
+    "is_email",
+    "format"
+   ]
+  },
+  "POST /search/applications/{package}/unlock": {
+   "body": [],
+   "path": [
+    "package"
+   ],
+   "query": [
+    "search",
+    "is_email",
+    "max",
+    "list_id"
+   ]
+  },
+  "POST /search/applications/{package}/unlock/task": {
+   "body": [],
+   "path": [
+    "package"
+   ],
+   "query": [
+    "search",
+    "is_email",
+    "max",
+    "list_id"
+   ]
+  },
+  "POST /search/combolist/advanced": {
+   "body": [
+    "added_from",
+    "added_to",
+    "email_domain",
+    "email_domain_match_type",
+    "email_domain_not",
+    "email_domain_not_match_type",
+    "force_and",
+    "is_email",
+    "password",
+    "password_hash",
+    "password_match_type",
+    "password_not",
+    "password_not_match_type",
+    "password_strength",
+    "username",
+    "username_hash",
+    "username_match_type",
+    "username_not",
+    "username_not_match_type"
+   ],
+   "path": [],
+   "query": [
+    "page",
+    "page_size",
+    "auto_unlock"
+   ]
+  },
+  "POST /search/combolist/email": {
+   "body": [
+    "email",
+    "search"
+   ],
+   "path": [],
+   "query": [
+    "page",
+    "page_size",
+    "auto_unlock"
+   ]
+  },
+  "POST /search/combolist/export": {
+   "body": [
+    "filters",
+    "scope",
+    "search",
+    "value"
+   ],
+   "path": [],
+   "query": [
+    "format"
+   ]
+  },
+  "POST /search/combolist/unlock": {
+   "body": [
+    "leak_ids",
+    "target_list_id"
+   ],
+   "path": [],
+   "query": []
+  },
+  "POST /search/combolist/unlock/task": {
+   "body": [
+    "filters",
+    "scope",
+    "search",
+    "value"
+   ],
+   "path": [],
+   "query": [
+    "max",
+    "list_id"
+   ]
+  },
+  "POST /search/combolist/username": {
+   "body": [
+    "search",
+    "username"
+   ],
+   "path": [],
+   "query": [
+    "page",
+    "page_size",
+    "auto_unlock"
+   ]
+  },
+  "POST /search/dark-web": {
+   "body": [
+    "author",
+    "content",
+    "logic",
+    "query",
+    "source_url",
+    "title"
+   ],
+   "path": [],
+   "query": [
+    "page",
+    "page_size",
+    "sources",
+    "date_from",
+    "date_to",
+    "sort_by",
+    "sort_order"
+   ]
+  },
+  "POST /search/domain/{domain}/subdomains/export": {
+   "body": [
+    "search"
+   ],
+   "path": [
+    "domain"
+   ],
+   "query": [
+    "search",
+    "format"
+   ]
+  },
+  "POST /search/domain/{domain}/urls/export": {
+   "body": [
+    "search"
+   ],
+   "path": [
+    "domain"
+   ],
+   "query": [
+    "search",
+    "format"
+   ]
+  },
+  "POST /search/domain/{domain}/{leak_type}/export": {
+   "body": [
+    "format",
+    "is_email",
+    "search"
+   ],
+   "path": [
+    "domain",
+    "leak_type"
+   ],
+   "query": [
+    "search",
+    "is_email",
+    "format"
+   ]
+  },
+  "POST /search/domain/{domain}/{leak_type}/unlock": {
+   "body": [],
+   "path": [
+    "domain",
+    "leak_type"
+   ],
+   "query": [
+    "search",
+    "is_email",
+    "max",
+    "list_id"
+   ]
+  },
+  "POST /search/domain/{domain}/{leak_type}/unlock/task": {
+   "body": [],
+   "path": [
+    "domain",
+    "leak_type"
+   ],
+   "query": [
+    "search",
+    "is_email",
+    "max",
+    "list_id"
+   ]
+  },
+  "POST /search/domains/locked-exists": {
+   "body": [
+    "categories",
+    "domains",
+    "include_counts"
+   ],
+   "path": [],
+   "query": []
+  },
+  "POST /search/email": {
+   "body": [
+    "email",
+    "is_email",
+    "search"
+   ],
+   "path": [],
+   "query": [
+    "page",
+    "page_size",
+    "auto_unlock"
+   ]
+  },
+  "POST /search/email/export": {
+   "body": [
+    "email",
+    "is_email",
+    "search"
+   ],
+   "path": [],
+   "query": [
+    "format"
+   ]
+  },
+  "POST /search/email/unlock": {
+   "body": [
+    "email",
+    "is_email",
+    "search"
+   ],
+   "path": [],
+   "query": [
+    "max",
+    "list_id"
+   ]
+  },
+  "POST /search/email/unlock/task": {
+   "body": [
+    "email",
+    "is_email",
+    "search"
+   ],
+   "path": [],
+   "query": [
+    "max",
+    "list_id"
+   ]
+  },
+  "POST /search/emails/locked-exists": {
+   "body": [
+    "emails",
+    "include_counts"
+   ],
+   "path": [],
+   "query": []
+  },
+  "POST /search/raw": {
+   "body": [
+    "categories",
+    "categories_not",
+    "container_id",
+    "exclude_terms",
+    "exts",
+    "exts_not",
+    "file_name",
+    "file_name_exact",
+    "file_name_match_type",
+    "file_name_not",
+    "file_name_not_match_type",
+    "folder_name",
+    "folder_name_exact",
+    "folder_name_match_type",
+    "folder_name_not",
+    "folder_name_not_match_type",
+    "force_and",
+    "include_terms",
+    "ingested_at_max",
+    "ingested_at_min",
+    "q",
+    "q_exact"
+   ],
+   "path": [],
+   "query": [
+    "page",
+    "page_size",
+    "cursor",
+    "dedup"
+   ]
+  },
+  "POST /search/raw/count": {
+   "body": [
+    "categories",
+    "categories_not",
+    "container_id",
+    "exclude_terms",
+    "exts",
+    "exts_not",
+    "file_name",
+    "file_name_exact",
+    "file_name_match_type",
+    "file_name_not",
+    "file_name_not_match_type",
+    "folder_name",
+    "folder_name_exact",
+    "folder_name_match_type",
+    "folder_name_not",
+    "folder_name_not_match_type",
+    "force_and",
+    "include_terms",
+    "ingested_at_max",
+    "ingested_at_min",
+    "q",
+    "q_exact"
+   ],
+   "path": [],
+   "query": [
+    "dedup"
+   ]
+  },
+  "POST /search/raw/export": {
+   "body": [
+    "categories",
+    "categories_not",
+    "container_id",
+    "exclude_terms",
+    "exts",
+    "exts_not",
+    "file_name",
+    "file_name_exact",
+    "file_name_match_type",
+    "file_name_not",
+    "file_name_not_match_type",
+    "folder_name",
+    "folder_name_exact",
+    "folder_name_match_type",
+    "folder_name_not",
+    "folder_name_not_match_type",
+    "force_and",
+    "include_terms",
+    "ingested_at_max",
+    "ingested_at_min",
+    "q",
+    "q_exact"
+   ],
+   "path": [],
+   "query": [
+    "export",
+    "dedup"
+   ]
+  },
+  "POST /search/raw/unlock/task": {
+   "body": [
+    "categories",
+    "categories_not",
+    "container_id",
+    "exclude_terms",
+    "exts",
+    "exts_not",
+    "file_name",
+    "file_name_exact",
+    "file_name_match_type",
+    "file_name_not",
+    "file_name_not_match_type",
+    "folder_name",
+    "folder_name_exact",
+    "folder_name_match_type",
+    "folder_name_not",
+    "folder_name_not_match_type",
+    "force_and",
+    "include_terms",
+    "ingested_at_max",
+    "ingested_at_min",
+    "q",
+    "q_exact"
+   ],
+   "path": [],
+   "query": [
+    "max",
+    "dedup"
+   ]
+  },
+  "POST /unlock": {
+   "body": [
+    "leak_ids",
+    "target_list_id"
+   ],
+   "path": [],
+   "query": []
+  },
+  "PUT /notification_runs/{run_id}/status": {
+   "body": [
+    "status"
+   ],
+   "path": [
+    "run_id"
+   ],
+   "query": []
+  },
+  "PUT /profile/unlocked/combolists/{leak_id}/comment": {
+   "body": [
+    "comment"
+   ],
+   "path": [
+    "leak_id"
+   ],
+   "query": []
+  },
+  "PUT /profile/unlocked/combolists/{leak_id}/list": {
+   "body": [
+    "list_id"
+   ],
+   "path": [
+    "leak_id"
+   ],
+   "query": []
+  },
+  "PUT /profile/unlocked/combolists/{leak_id}/status": {
+   "body": [
+    "status"
+   ],
+   "path": [
+    "leak_id"
+   ],
+   "query": []
+  },
+  "PUT /profile/unlocked/{leak_id}/comment": {
+   "body": [
+    "comment"
+   ],
+   "path": [
+    "leak_id"
+   ],
+   "query": []
+  },
+  "PUT /profile/unlocked/{leak_id}/list": {
+   "body": [
+    "list_id"
+   ],
+   "path": [
+    "leak_id"
+   ],
+   "query": []
+  },
+  "PUT /profile/unlocked/{leak_id}/status": {
+   "body": [
+    "status"
+   ],
+   "path": [
+    "leak_id"
+   ],
+   "query": []
+  }
+ },
+ "source": "https://api.leakradar.io/openapi.json"
+}

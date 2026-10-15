@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "leakradar"
-version = "0.1.6"
+dynamic = ["version"]
 description = "Asynchronous client for the LeakRadar.io API"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -17,11 +17,24 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
+    "Typing :: Typed",
 ]
+
+[project.urls]
+Homepage = "https://leakradar.io"
+Documentation = "https://docs.leakradar.io"
+Source = "https://github.com/LeakRadar/leakradar-wrapper"
+Changelog = "https://github.com/LeakRadar/leakradar-wrapper/blob/main/CHANGELOG.md"
 
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["leakradar"]
+
+[tool.setuptools.package-data]
+leakradar = ["py.typed"]
+
+[tool.setuptools.dynamic]
+version = {attr = "leakradar._version.__version__"}
 
 [tool.setuptools]
 include-package-data = true

@@ -25,8 +25,13 @@ async def main():
             "domain": plan_flag(plan, "domain_search"),
             "email": plan_flag(plan, "email_search"),
             "raw": plan_flag(plan, "raw_search"),
+            "combolist": plan_flag(plan, "combolist_search"),
+            "dark_web": plan_flag(plan, "dark_web_search"),
         }
         print(f"Profile: {profile['email']} | Plan: {plan_name} | Gates: {gates}")
+
+        usage = await client.get_usage()
+        print("Usage:", usage)
 
         if gates["advanced"]:
             try:
@@ -86,12 +91,41 @@ async def main():
 
         if gates["raw"]:
             try:
-                raw = await client.raw_search(q='admin@admin.com', page_size=50)
+                raw = await client.raw_search(q='admin@admin.com', page_size=50, dedup=True)
                 print("Raw hits:", raw.get("total", 0))
+
+                estimate = await client.raw_count(q='admin@admin.com')
+                print("Raw mass unlock estimate (parts):", estimate.get("total"))
             except LeakRadarAPIError as e:
                 print(f"Raw error: {e}")
         else:
             print_skip("Raw", plan_name)
+
+        if gates["combolist"]:
+            try:
+                combos = await client.search_combolist_email("john.doe@example.com", page_size=50)
+                print("Combolist pairs:", combos.get("total", 0))
+
+                report = await client.get_combolist_domain_report("example.com")
+                print("Combolist domain report:", report)
+
+                # Optional unlock / export of a whole scope (kept commented for safety: unlocks spend points)
+                # task = await client.queue_combolist_unlock_task("email", value="john.doe@example.com", max_leaks=10)
+                # print("Combolist unlock task:", task)
+                # print(await client.export_combolist("email", value="john.doe@example.com", format="csv"))
+            except LeakRadarAPIError as e:
+                print(f"Combolist error: {e}")
+        else:
+            print_skip("Combolist", plan_name)
+
+        if gates["dark_web"]:
+            try:
+                posts = await client.search_dark_web("example.com", page_size=10, sort_by="published_at")
+                print("Dark web posts:", posts.get("total", 0))
+            except LeakRadarAPIError as e:
+                print(f"Dark web error: {e}")
+        else:
+            print_skip("Dark web", plan_name)
 
         try:
             runs = await client.list_notification_runs()
@@ -99,8 +133,8 @@ async def main():
             items = runs.get("items") or []
             if items:
                 run_id = items[0]["id"]
-                leaks = await client.notification_run_leaks(run_id=run_id, page_size=10)
-                print("Run leaks:", leaks.get("total", 0))
+                run_items = await client.get_notification_run_items(run_id=run_id, page_size=10)
+                print("Run items:", run_items.get("total", 0), run_items.get("item_type"))
                 queue = await client.export_notification_run(run_id=run_id, format="csv")
                 print("Run export queued:", queue)
         except ForbiddenError:

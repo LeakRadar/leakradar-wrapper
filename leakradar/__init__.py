@@ -1,5 +1,6 @@
 """Asynchronous Python client for LeakRadar.io"""
 
+from ._version import __version__
 from .client import (
     LeakRadarClient,
     LeakRadarAPIError,
@@ -11,6 +12,8 @@ from .client import (
     ValidationError,
     ConflictError,
     PaymentRequiredError,
+    GoneError,
+    ServiceUnavailableError,
 )
 
 __all__ = [
@@ -24,7 +27,7 @@ __all__ = [
     "ValidationError",
     "ConflictError",
     "PaymentRequiredError",
+    "GoneError",
+    "ServiceUnavailableError",
     "__version__",
 ]
-
-__version__ = "0.1.6"
