@@ -1,0 +1,64 @@
+name: Publish
+# Publishes the package to PyPI when a version tag is pushed, once CI passed on the tagged commit:
+#   git tag v0.3.0 && git push origin v0.3.0      (the tag must equal leakradar/_version.py, and
+#                                                  CHANGELOG.md must head its entry ## 0.3.0 (YYYY-MM-DD))
+# PyPI Trusted Publishing: no API token anywhere. One-time setup by a maintainer, before the first tag:
+#   1. pypi.org, project leakradar > Manage > Publishing > Add a new publisher > GitHub:
+#      owner LeakRadar, repository leakradar-wrapper, workflow publish.yml, environment pypi.
+#   2. github.com/LeakRadar/leakradar-wrapper > Settings > Environments > New environment "pypi"
+#      (optionally restricted to v* tags, with required reviewers).
+# Actions are pinned to a full commit SHA (the version in the comment), as in ci.yml.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+
+  build:
+    needs: ci
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - name: The tag matches leakradar/_version.py, and CHANGELOG.md dates its entry
+        run: |
+          version=$(python -c 'import runpy; print(runpy.run_path("leakradar/_version.py")["__version__"])')
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::tag $GITHUB_REF_NAME, but leakradar/_version.py says $version"
+            exit 1
+          fi
+          if ! grep -q "^## $version ([0-9]" CHANGELOG.md; then
+            echo "::error::CHANGELOG.md has no dated entry for $version: head it ## $version (YYYY-MM-DD)"
+            exit 1
+          fi
+      - run: python -m pip install build twine
+      - run: python -m build
+      - run: python -m twine check --strict dist/*
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: pypi
+      url: https://pypi.org/project/leakradar/
+    permissions:
+      id-token: write # Trusted Publishing, and nothing else
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086 # v1.14.3

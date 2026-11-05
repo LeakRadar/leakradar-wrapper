@@ -158,6 +158,8 @@ OPERATIONS = {
     "DELETE /notifications/{notification_id}": ("delete_notification", {"notification_id": 2}),
     "DELETE /notifications/bulk": ("delete_notifications_bulk", {"ids": [2]}),
     "PATCH /notifications/{notification_id}/active": ("set_notification_active", {"notification_id": 2, "is_active": True}),
+    "POST /notifications/{notification_id}/scope_all": ("extend_monitor_to_all_datasets", {"notification_id": 2}),
+    "POST /notifications/scope_all/bulk": ("extend_monitors_to_all_datasets", {"ids": [2]}),
     "POST /notification_methods/test": ("test_notification_method", {"data": {"type": "email"}}),
     "POST /notification_methods/{method_id}/test-with-data": ("test_notification_method_with_data", {"method_id": 2}),
     "GET /notifications/stats": ("get_notifications_stats", {}),
@@ -169,7 +171,12 @@ OPERATIONS = {
     "POST /notification_runs/{run_id}/leaks/unlock": ("unlock_notification_run_leaks", {"run_id": 9}),
     "GET /notification_runs/{run_id}/export": ("export_notification_run", {"run_id": 9}),
     "GET /tasks/{task_id}": ("get_task_status", {"task_id": "12"}),
+    "GET /rate-limits": ("rate_limits", {}),
 }
+
+# Operations the client covers before the published spec lists them. Drop an entry once a
+# snapshot refresh brings its operation in (GET /rate-limits came in with API 1.4.9.8).
+AHEAD_OF_SPEC = set()
 
 # Client arguments named differently from the spec parameter they fill.
 RENAMED = {"max": "max_leaks"}
@@ -208,6 +215,10 @@ SAMPLES = {
     "ids": [1],
     "domains": ["example.com"],
     "emails": ["john@example.com"],
+    "absorb_ids": [3],
+    "datasets": ["stealer_logs", "combolist"],
+    "export_id": 5,
+    "file_id": 7,
 }
 
 
@@ -262,8 +273,9 @@ class ContractTest(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(missing, [], "spec operations without a client method")
 
     def test_every_mapped_operation_is_in_the_spec(self):
-        stale = sorted(set(OPERATIONS) - set(SPEC_OPERATIONS))
+        stale = sorted(set(OPERATIONS) - set(SPEC_OPERATIONS) - AHEAD_OF_SPEC)
         self.assertEqual(stale, [], "client methods mapped to operations the API no longer publishes")
+        self.assertLessEqual(AHEAD_OF_SPEC, set(OPERATIONS))
 
     async def test_each_method_calls_its_operation(self):
         for operation, (method_name, kwargs) in sorted(OPERATIONS.items()):

@@ -17,6 +17,32 @@ from leakradar import (
     TooManyRequestsError,
 )
 
+# Methods taking an int ID in their path: (method, arguments after the ID, route with {} for the ID).
+ID_ROUTES = [
+    ("update_unlocked_list", (), "/profile/unlocked/lists/{}"),
+    ("delete_unlocked_list", (), "/profile/unlocked/lists/{}"),
+    ("clear_unlocked_list", (), "/profile/unlocked/lists/{}/clear"),
+    ("update_notification_method", ({},), "/notification_methods/{}"),
+    ("delete_notification_method", (), "/notification_methods/{}"),
+    ("set_notification_method_active", (True,), "/notification_methods/{}/active"),
+    ("test_notification_method_with_data", (), "/notification_methods/{}/test-with-data"),
+    ("update_notification", ({},), "/notifications/{}"),
+    ("delete_notification", (), "/notifications/{}"),
+    ("set_notification_active", (True,), "/notifications/{}/active"),
+    ("get_notification_run", (), "/notification_runs/{}"),
+    ("get_notification_run_items", (), "/notification_runs/{}/items"),
+    ("set_notification_run_status", ("fixed",), "/notification_runs/{}/status"),
+    ("unlock_notification_run_leaks", (), "/notification_runs/{}/leaks/unlock"),
+    ("export_notification_run", (), "/notification_runs/{}/export"),
+    ("get_raw_download_url", (), "/profile/raw/downloads/{}/file"),
+    ("resend_team_invitation", (), "/profile/team/invitations/{}/resend"),
+    ("revoke_team_invitation", (), "/profile/team/invitations/{}/revoke"),
+    ("update_team_member_role", ("member",), "/profile/team/members/{}"),
+    ("delete_team_member", (), "/profile/team/members/{}"),
+]
+HOSTILE_ID = "1/../../profile?x#"
+ENCODED_ID = "1%2F..%2F..%2Fprofile%3Fx%23"
+
 
 class ClientTestCase(unittest.IsolatedAsyncioTestCase):
     response = httpx.Response(200, json={})
@@ -55,9 +81,51 @@ class TransportAndHeadersTest(ClientTestCase):
         self.assertEqual(str(self.request.url), "https://api.leakradar.io/profile")
 
     async def test_path_segments_are_encoded(self):
-        await self.client.get_domain_all("evil.com/../../profile")
+        # An input can never change the route: a segment is percent-encoded whole.
+        await self.client.get_application_leaks("com.evil/../../profile")
         path = self.request.url.raw_path.split(b"?", 1)[0]
-        self.assertEqual(path, b"/search/domain/evil.com%2F..%2F..%2Fprofile/all")
+        self.assertEqual(path, b"/search/applications/com.evil%2F..%2F..%2Fprofile/leaks")
+        self.requests.clear()
+        await self.client.get_domain_all("evil.com%2f..%2fprofile")
+        path = self.request.url.raw_path.split(b"?", 1)[0]
+        self.assertEqual(path, b"/search/domain/evil.com%252f..%252fprofile/all")
+
+    async def test_dot_segments_are_refused(self):
+        # httpx resolves "." and ".." in a path: /tasks/.. would be GET /, a status PUT another route.
+        for call in (
+            lambda: self.client.get_task_status(".."),
+            lambda: self.client.get_task_status("."),
+            lambda: self.client.set_unlocked_combolist_status(".", "new"),
+            lambda: self.client.wait_for_unlocked_list_task(".."),
+            lambda: self.client.delete_notification(".."),
+        ):
+            with self.assertRaises(ValueError):
+                await call()
+        self.assertEqual(self.requests, [])
+        await self.client.get_task_status("abc.def")
+        self.assertEqual(self.request.url.raw_path, b"/tasks/abc.def")
+
+    async def test_every_int_id_is_one_path_segment(self):
+        # An ID annotated int is not checked: a string holding a path stays one segment (0.3.0).
+        for name, extra, route in ID_ROUTES:
+            for value, segment in ((HOSTILE_ID, ENCODED_ID), (42, "42"), ("42", "42")):
+                with self.subTest(method=name, value=value):
+                    self.requests.clear()
+                    call = getattr(self.client, name)(value, *extra)
+                    if name == "get_raw_download_url":
+                        with self.assertRaises(LeakRadarAPIError):  # the mock answers no redirect
+                            await call
+                    else:
+                        await call
+                    path = self.request.url.raw_path.split(b"?", 1)[0].decode("ascii")
+                    self.assertEqual(path, route.format(segment))
+
+    async def test_a_url_passed_as_domain_searches_its_host(self):
+        # Since 0.3.0 a domain argument holding a path is reduced to its host (with a warning).
+        with self.assertWarns(UserWarning):
+            await self.client.get_domain_all("evil.com/../../profile")
+        path = self.request.url.raw_path.split(b"?", 1)[0]
+        self.assertEqual(path, b"/search/domain/evil.com/all")
 
     async def test_dates_are_sent_as_iso_8601(self):
         moment = datetime(2026, 9, 1, tzinfo=timezone.utc)
@@ -137,6 +205,17 @@ class RawSearchTest(ClientTestCase):
             await self.client.raw_export("lines", q="admin@example.com")
         await self.client.raw_export("parts", q="admin@example.com", dedup=True)
         self.assertEqual(self.query, {"export": "parts", "dedup": "true"})
+
+
+class PasswordRangeTest(ClientTestCase):
+    async def test_datasets_list_is_sent_comma_separated(self):
+        await self.client.password_range("5BAA6", datasets=["stealer_logs", "combolist"])
+        self.assertEqual(self.request.url.path, "/password-range")
+        self.assertEqual(self.query["datasets"], "stealer_logs,combolist")
+
+    async def test_datasets_omitted_keeps_the_server_default(self):
+        await self.client.password_range("5BAA6")
+        self.assertNotIn("datasets", self.query)
 
 
 class CombolistTest(ClientTestCase):
@@ -271,6 +350,15 @@ class ResponseTest(ClientTestCase):
 
 
 class ErrorTest(ClientTestCase):
+    async def asyncSetUp(self):
+        await super().asyncSetUp()
+
+        async def no_wait(seconds):
+            pass
+
+        # A 502 on a GET is retried with a backoff since 0.3.0: no real wait in these tests.
+        self.client._sleep = no_wait
+
     async def _raises(self, response, error_class):
         self.response = response
         with self.assertRaises(error_class) as caught:

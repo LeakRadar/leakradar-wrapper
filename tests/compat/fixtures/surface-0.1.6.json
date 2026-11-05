@@ -1,0 +1,800 @@
+{
+ "version": "0.1.6",
+ "package": {
+  "names": [
+   "BadRequestError",
+   "ConflictError",
+   "ForbiddenError",
+   "LeakRadarAPIError",
+   "LeakRadarClient",
+   "NotFoundError",
+   "PaymentRequiredError",
+   "TooManyRequestsError",
+   "UnauthorizedError",
+   "ValidationError",
+   "__version__"
+  ],
+  "all": [
+   "BadRequestError",
+   "ConflictError",
+   "ForbiddenError",
+   "LeakRadarAPIError",
+   "LeakRadarClient",
+   "NotFoundError",
+   "PaymentRequiredError",
+   "TooManyRequestsError",
+   "UnauthorizedError",
+   "ValidationError",
+   "__version__"
+  ]
+ },
+ "client_module": {
+  "names": [
+   "BadRequestError",
+   "ConflictError",
+   "ForbiddenError",
+   "GoneError",
+   "LeakRadarAPIError",
+   "LeakRadarClient",
+   "NotFoundError",
+   "PaymentRequiredError",
+   "TooManyRequestsError",
+   "UnauthorizedError",
+   "ValidationError"
+  ]
+ },
+ "classes": {
+  "BadRequestError": {
+   "mro": ["BadRequestError", "LeakRadarAPIError", "Exception", "BaseException", "object"],
+   "init": [
+    {"name": "status_code", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+    {"name": "detail", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1}
+   ],
+   "sample": {
+    "args": [404, "Not found"],
+    "str": "API Error 404: Not found",
+    "attrs": {"status_code": 404, "detail": "Not found"}
+   }
+  },
+  "ConflictError": {
+   "mro": ["ConflictError", "LeakRadarAPIError", "Exception", "BaseException", "object"],
+   "init": [
+    {"name": "status_code", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+    {"name": "detail", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1}
+   ],
+   "sample": {
+    "args": [404, "Not found"],
+    "str": "API Error 404: Not found",
+    "attrs": {"status_code": 404, "detail": "Not found"}
+   }
+  },
+  "ForbiddenError": {
+   "mro": ["ForbiddenError", "LeakRadarAPIError", "Exception", "BaseException", "object"],
+   "init": [
+    {"name": "status_code", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+    {"name": "detail", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1}
+   ],
+   "sample": {
+    "args": [404, "Not found"],
+    "str": "API Error 404: Not found",
+    "attrs": {"status_code": 404, "detail": "Not found"}
+   }
+  },
+  "GoneError": {
+   "mro": ["GoneError", "LeakRadarAPIError", "Exception", "BaseException", "object"],
+   "init": [
+    {"name": "status_code", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+    {"name": "detail", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1}
+   ],
+   "sample": {
+    "args": [404, "Not found"],
+    "str": "API Error 404: Not found",
+    "attrs": {"status_code": 404, "detail": "Not found"}
+   }
+  },
+  "LeakRadarAPIError": {
+   "mro": ["LeakRadarAPIError", "Exception", "BaseException", "object"],
+   "init": [
+    {"name": "status_code", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+    {"name": "detail", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1}
+   ],
+   "sample": {
+    "args": [404, "Not found"],
+    "str": "API Error 404: Not found",
+    "attrs": {"status_code": 404, "detail": "Not found"}
+   }
+  },
+  "LeakRadarClient": {"mro": ["LeakRadarClient", "object"]},
+  "NotFoundError": {
+   "mro": ["NotFoundError", "LeakRadarAPIError", "Exception", "BaseException", "object"],
+   "init": [
+    {"name": "status_code", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+    {"name": "detail", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1}
+   ],
+   "sample": {
+    "args": [404, "Not found"],
+    "str": "API Error 404: Not found",
+    "attrs": {"status_code": 404, "detail": "Not found"}
+   }
+  },
+  "PaymentRequiredError": {
+   "mro": ["PaymentRequiredError", "LeakRadarAPIError", "Exception", "BaseException", "object"],
+   "init": [
+    {"name": "status_code", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+    {"name": "detail", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1}
+   ],
+   "sample": {
+    "args": [404, "Not found"],
+    "str": "API Error 404: Not found",
+    "attrs": {"status_code": 404, "detail": "Not found"}
+   }
+  },
+  "TooManyRequestsError": {
+   "mro": ["TooManyRequestsError", "LeakRadarAPIError", "Exception", "BaseException", "object"],
+   "init": [
+    {"name": "status_code", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+    {"name": "detail", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1}
+   ],
+   "sample": {
+    "args": [404, "Not found"],
+    "str": "API Error 404: Not found",
+    "attrs": {"status_code": 404, "detail": "Not found"}
+   }
+  },
+  "UnauthorizedError": {
+   "mro": ["UnauthorizedError", "LeakRadarAPIError", "Exception", "BaseException", "object"],
+   "init": [
+    {"name": "status_code", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+    {"name": "detail", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1}
+   ],
+   "sample": {
+    "args": [404, "Not found"],
+    "str": "API Error 404: Not found",
+    "attrs": {"status_code": 404, "detail": "Not found"}
+   }
+  },
+  "ValidationError": {
+   "mro": ["ValidationError", "LeakRadarAPIError", "Exception", "BaseException", "object"],
+   "init": [
+    {"name": "status_code", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+    {"name": "detail", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1}
+   ],
+   "sample": {
+    "args": [404, "Not found"],
+    "str": "API Error 404: Not found",
+    "attrs": {"status_code": 404, "detail": "Not found"}
+   }
+  }
+ },
+ "client": {
+  "attributes": {"BASE_URL": "'https://api.leakradar.io'"},
+  "instance_attributes": {"_client": "AsyncClient", "token": "str", "user_agent": "str"},
+  "init": [
+   {"name": "token", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 0},
+   {
+    "name": "user_agent",
+    "kind": "POSITIONAL_OR_KEYWORD",
+    "default": "'LeakRadar-Python-Client/0.1.6'",
+    "position": 1
+   },
+   {"name": "timeout", "kind": "POSITIONAL_OR_KEYWORD", "default": "30.0", "position": 2}
+  ],
+  "methods": {
+   "_request": {
+    "coroutine": true,
+    "params": [
+     {"name": "method", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "endpoint", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1},
+     {"name": "params", "kind": "KEYWORD_ONLY", "default": "None", "position": null},
+     {"name": "json", "kind": "KEYWORD_ONLY", "default": "None", "position": null},
+     {"name": "headers", "kind": "KEYWORD_ONLY", "default": "None", "position": null},
+     {"name": "follow_redirects", "kind": "KEYWORD_ONLY", "default": "False", "position": null}
+    ]
+   },
+   "aclose": {"coroutine": true, "params": []},
+   "bulk_assign_unlocked_list": {
+    "coroutine": true,
+    "params": [
+     {"name": "target_list_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "filters", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1},
+     {"name": "search", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2},
+     {"name": "is_email", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3},
+     {"name": "list_id_filter", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 4},
+     {"name": "list_none", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 5}
+    ]
+   },
+   "clear_unlocked_list": {
+    "coroutine": true,
+    "params": [{"name": "list_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0}]
+   },
+   "container_file_info": {
+    "coroutine": true,
+    "params": [
+     {"name": "container_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "entry_path", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1}
+    ]
+   },
+   "container_resolve_path": {
+    "coroutine": true,
+    "params": [
+     {"name": "container_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "entry_path", "kind": "POSITIONAL_OR_KEYWORD", "default": "''", "position": 1},
+     {"name": "options", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2}
+    ]
+   },
+   "container_subfolders": {
+    "coroutine": true,
+    "params": [
+     {"name": "container_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "prefix", "kind": "POSITIONAL_OR_KEYWORD", "default": "''", "position": 1},
+     {"name": "page", "kind": "POSITIONAL_OR_KEYWORD", "default": "1", "position": 2},
+     {"name": "page_size", "kind": "POSITIONAL_OR_KEYWORD", "default": "1000", "position": 3}
+    ]
+   },
+   "container_tree": {
+    "coroutine": true,
+    "params": [
+     {"name": "container_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "prefix", "kind": "POSITIONAL_OR_KEYWORD", "default": "''", "position": 1},
+     {"name": "page", "kind": "POSITIONAL_OR_KEYWORD", "default": "1", "position": 2},
+     {"name": "page_size", "kind": "POSITIONAL_OR_KEYWORD", "default": "200", "position": 3}
+    ]
+   },
+   "create_notification": {
+    "coroutine": true,
+    "params": [{"name": "data", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0}]
+   },
+   "create_notification_method": {
+    "coroutine": true,
+    "params": [{"name": "data", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0}]
+   },
+   "create_team_invitation": {
+    "coroutine": true,
+    "params": [
+     {"name": "email", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "name", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1},
+     {"name": "role", "kind": "POSITIONAL_OR_KEYWORD", "default": "'member'", "position": 2}
+    ]
+   },
+   "create_unlocked_list": {
+    "coroutine": true,
+    "params": [
+     {"name": "name", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "color", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1}
+    ]
+   },
+   "delete_notification": {
+    "coroutine": true,
+    "params": [{"name": "notification_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0}]
+   },
+   "delete_notification_method": {
+    "coroutine": true,
+    "params": [{"name": "method_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0}]
+   },
+   "delete_notifications_bulk": {
+    "coroutine": true,
+    "params": [{"name": "ids", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0}]
+   },
+   "delete_team_member": {
+    "coroutine": true,
+    "params": [{"name": "member_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0}]
+   },
+   "delete_unlocked_leak_comment": {
+    "coroutine": true,
+    "params": [{"name": "leak_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0}]
+   },
+   "delete_unlocked_list": {
+    "coroutine": true,
+    "params": [{"name": "list_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0}]
+   },
+   "domains_locked_exists": {
+    "coroutine": true,
+    "params": [
+     {"name": "domains", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "categories", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1},
+     {"name": "include_counts", "kind": "POSITIONAL_OR_KEYWORD", "default": "False", "position": 2}
+    ]
+   },
+   "download_raw_file": {
+    "coroutine": true,
+    "params": [
+     {"name": "download_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "token", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1}
+    ]
+   },
+   "emails_locked_exists": {
+    "coroutine": true,
+    "params": [
+     {"name": "emails", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "include_counts", "kind": "POSITIONAL_OR_KEYWORD", "default": "False", "position": 1}
+    ]
+   },
+   "export_advanced": {
+    "coroutine": true,
+    "params": [
+     {"name": "format", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 0},
+     {"name": "filters", "kind": "VAR_KEYWORD", "default": null, "position": null}
+    ]
+   },
+   "export_advanced_urls": {
+    "coroutine": true,
+    "params": [
+     {"name": "format", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 0},
+     {"name": "filters", "kind": "VAR_KEYWORD", "default": null, "position": null}
+    ]
+   },
+   "export_domain_leaks": {
+    "coroutine": true,
+    "params": [
+     {"name": "domain", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "leak_type", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1},
+     {"name": "search", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2},
+     {"name": "is_email", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3},
+     {"name": "format", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 4}
+    ]
+   },
+   "export_domain_subdomains": {
+    "coroutine": true,
+    "params": [
+     {"name": "domain", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "search", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1},
+     {"name": "format", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2}
+    ]
+   },
+   "export_domain_urls": {
+    "coroutine": true,
+    "params": [
+     {"name": "domain", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "search", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1},
+     {"name": "format", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2}
+    ]
+   },
+   "export_email_leaks": {
+    "coroutine": true,
+    "params": [
+     {"name": "email", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "search", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1},
+     {"name": "is_email", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2},
+     {"name": "format", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3}
+    ]
+   },
+   "export_notification_run": {
+    "coroutine": true,
+    "params": [
+     {"name": "run_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "search", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1},
+     {"name": "is_email", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2},
+     {"name": "format", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3}
+    ]
+   },
+   "export_unlocked_advanced": {
+    "coroutine": true,
+    "params": [
+     {"name": "format", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 0},
+     {"name": "unlocked_at_min", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1},
+     {"name": "list_id", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2},
+     {"name": "list_none", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3},
+     {"name": "filters", "kind": "VAR_KEYWORD", "default": null, "position": null}
+    ]
+   },
+   "export_unlocked_leaks": {
+    "coroutine": true,
+    "params": [
+     {"name": "search", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 0},
+     {"name": "is_email", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1},
+     {"name": "list_id", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2},
+     {"name": "list_none", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3},
+     {"name": "format", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 4},
+     {"name": "unlocked_at_min", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 5}
+    ]
+   },
+   "get_domain_customers": {
+    "coroutine": true,
+    "params": [
+     {"name": "domain", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "page", "kind": "POSITIONAL_OR_KEYWORD", "default": "1", "position": 1},
+     {"name": "page_size", "kind": "POSITIONAL_OR_KEYWORD", "default": "100", "position": 2},
+     {"name": "search", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3},
+     {"name": "is_email", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 4}
+    ]
+   },
+   "get_domain_employees": {
+    "coroutine": true,
+    "params": [
+     {"name": "domain", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "page", "kind": "POSITIONAL_OR_KEYWORD", "default": "1", "position": 1},
+     {"name": "page_size", "kind": "POSITIONAL_OR_KEYWORD", "default": "100", "position": 2},
+     {"name": "search", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3},
+     {"name": "is_email", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 4}
+    ]
+   },
+   "get_domain_report": {
+    "coroutine": true,
+    "params": [
+     {"name": "domain", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "light", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1}
+    ]
+   },
+   "get_domain_report_pdf": {
+    "coroutine": true,
+    "params": [{"name": "domain", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0}]
+   },
+   "get_domain_subdomains": {
+    "coroutine": true,
+    "params": [
+     {"name": "domain", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "page", "kind": "POSITIONAL_OR_KEYWORD", "default": "1", "position": 1},
+     {"name": "page_size", "kind": "POSITIONAL_OR_KEYWORD", "default": "100", "position": 2},
+     {"name": "search", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3}
+    ]
+   },
+   "get_domain_third_parties": {
+    "coroutine": true,
+    "params": [
+     {"name": "domain", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "page", "kind": "POSITIONAL_OR_KEYWORD", "default": "1", "position": 1},
+     {"name": "page_size", "kind": "POSITIONAL_OR_KEYWORD", "default": "100", "position": 2},
+     {"name": "search", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3},
+     {"name": "is_email", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 4}
+    ]
+   },
+   "get_domain_urls": {
+    "coroutine": true,
+    "params": [
+     {"name": "domain", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "page", "kind": "POSITIONAL_OR_KEYWORD", "default": "1", "position": 1},
+     {"name": "page_size", "kind": "POSITIONAL_OR_KEYWORD", "default": "100", "position": 2},
+     {"name": "search", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3}
+    ]
+   },
+   "get_notifications_stats": {"coroutine": true, "params": []},
+   "get_profile": {"coroutine": true, "params": []},
+   "get_raw_download_url": {
+    "coroutine": true,
+    "params": [
+     {"name": "download_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "token", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1}
+    ]
+   },
+   "get_stats": {"coroutine": true, "params": []},
+   "get_task_status": {
+    "coroutine": true,
+    "params": [{"name": "task_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0}]
+   },
+   "get_team": {"coroutine": true, "params": []},
+   "get_unlocked_advanced": {
+    "coroutine": true,
+    "params": [
+     {"name": "page", "kind": "POSITIONAL_OR_KEYWORD", "default": "1", "position": 0},
+     {"name": "page_size", "kind": "POSITIONAL_OR_KEYWORD", "default": "100", "position": 1},
+     {"name": "search", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2},
+     {"name": "list_id", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3},
+     {"name": "list_none", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 4},
+     {"name": "filters", "kind": "VAR_KEYWORD", "default": null, "position": null}
+    ]
+   },
+   "get_unlocked_leaks": {
+    "coroutine": true,
+    "params": [
+     {"name": "page", "kind": "POSITIONAL_OR_KEYWORD", "default": "1", "position": 0},
+     {"name": "page_size", "kind": "POSITIONAL_OR_KEYWORD", "default": "100", "position": 1},
+     {"name": "search", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2},
+     {"name": "is_email", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3},
+     {"name": "list_id", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 4},
+     {"name": "list_none", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 5}
+    ]
+   },
+   "get_unlocked_list_task": {
+    "coroutine": true,
+    "params": [{"name": "task_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0}]
+   },
+   "list_exports": {
+    "coroutine": true,
+    "params": [
+     {"name": "page", "kind": "POSITIONAL_OR_KEYWORD", "default": "1", "position": 0},
+     {"name": "page_size", "kind": "POSITIONAL_OR_KEYWORD", "default": "20", "position": 1}
+    ]
+   },
+   "list_notification_methods": {"coroutine": true, "params": []},
+   "list_notification_runs": {
+    "coroutine": true,
+    "params": [
+     {"name": "page", "kind": "POSITIONAL_OR_KEYWORD", "default": "1", "position": 0},
+     {"name": "page_size", "kind": "POSITIONAL_OR_KEYWORD", "default": "20", "position": 1}
+    ]
+   },
+   "list_notifications": {"coroutine": true, "params": []},
+   "list_raw_downloads": {
+    "coroutine": true,
+    "params": [
+     {"name": "page", "kind": "POSITIONAL_OR_KEYWORD", "default": "1", "position": 0},
+     {"name": "page_size", "kind": "POSITIONAL_OR_KEYWORD", "default": "20", "position": 1}
+    ]
+   },
+   "list_raw_files": {"coroutine": true, "params": []},
+   "list_unlocked_lists": {
+    "coroutine": true,
+    "params": [{"name": "with_counts", "kind": "POSITIONAL_OR_KEYWORD", "default": "True", "position": 0}]
+   },
+   "notification_run_leaks": {
+    "coroutine": true,
+    "params": [
+     {"name": "run_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "page", "kind": "POSITIONAL_OR_KEYWORD", "default": "1", "position": 1},
+     {"name": "page_size", "kind": "POSITIONAL_OR_KEYWORD", "default": "100", "position": 2},
+     {"name": "search", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3},
+     {"name": "is_email", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 4}
+    ]
+   },
+   "password_range": {
+    "coroutine": true,
+    "params": [
+     {"name": "prefix", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "limit", "kind": "POSITIONAL_OR_KEYWORD", "default": "1000", "position": 1},
+     {"name": "suffix_only", "kind": "POSITIONAL_OR_KEYWORD", "default": "False", "position": 2}
+    ]
+   },
+   "queue_advanced_unlock_task": {
+    "coroutine": true,
+    "params": [
+     {"name": "filters", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "max_leaks", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1},
+     {"name": "list_id", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2}
+    ]
+   },
+   "queue_domain_unlock_task": {
+    "coroutine": true,
+    "params": [
+     {"name": "domain", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "leak_type", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1},
+     {"name": "search", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2},
+     {"name": "is_email", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3},
+     {"name": "max_leaks", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 4},
+     {"name": "list_id", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 5}
+    ]
+   },
+   "queue_email_unlock_task": {
+    "coroutine": true,
+    "params": [
+     {"name": "email", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "max_leaks", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1},
+     {"name": "list_id", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2},
+     {"name": "search", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3},
+     {"name": "is_email", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 4}
+    ]
+   },
+   "raw_download_preview": {
+    "coroutine": true,
+    "params": [
+     {"name": "sha256_original", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 0},
+     {"name": "container_id", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1},
+     {"name": "entry_path", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2}
+    ]
+   },
+   "raw_download_source": {
+    "coroutine": true,
+    "params": [
+     {"name": "sha256_original", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 0},
+     {"name": "container_id", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1},
+     {"name": "entry_path", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2},
+     {"name": "expires_in", "kind": "POSITIONAL_OR_KEYWORD", "default": "900", "position": 3}
+    ]
+   },
+   "raw_export": {
+    "coroutine": true,
+    "params": [
+     {"name": "export", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "q", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1},
+     {"name": "container_id", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2},
+     {"name": "exts", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3},
+     {"name": "categories", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 4},
+     {"name": "file_name", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 5}
+    ]
+   },
+   "raw_export_preview": {
+    "coroutine": true,
+    "params": [
+     {"name": "export", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "q", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1},
+     {"name": "container_id", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2},
+     {"name": "exts", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3},
+     {"name": "categories", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 4},
+     {"name": "file_name", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 5}
+    ]
+   },
+   "raw_get_part": {
+    "coroutine": true,
+    "params": [
+     {"name": "container_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "entry_path", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1},
+     {"name": "seq", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 2},
+     {"name": "trim_overlap", "kind": "POSITIONAL_OR_KEYWORD", "default": "False", "position": 3},
+     {"name": "overlap_chars", "kind": "POSITIONAL_OR_KEYWORD", "default": "256", "position": 4},
+     {"name": "auto_unlock", "kind": "POSITIONAL_OR_KEYWORD", "default": "False", "position": 5}
+    ]
+   },
+   "raw_list_parts": {
+    "coroutine": true,
+    "params": [
+     {"name": "container_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "entry_path", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1},
+     {"name": "page", "kind": "POSITIONAL_OR_KEYWORD", "default": "1", "position": 2},
+     {"name": "page_size", "kind": "POSITIONAL_OR_KEYWORD", "default": "100", "position": 3}
+    ]
+   },
+   "raw_search": {
+    "coroutine": true,
+    "params": [
+     {"name": "q", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 0},
+     {"name": "page", "kind": "POSITIONAL_OR_KEYWORD", "default": "1", "position": 1},
+     {"name": "page_size", "kind": "POSITIONAL_OR_KEYWORD", "default": "10", "position": 2},
+     {"name": "container_id", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3},
+     {"name": "exts", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 4},
+     {"name": "categories", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 5},
+     {"name": "file_name", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 6}
+    ]
+   },
+   "resend_team_invitation": {
+    "coroutine": true,
+    "params": [{"name": "invitation_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0}]
+   },
+   "revoke_team_invitation": {
+    "coroutine": true,
+    "params": [{"name": "invitation_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0}]
+   },
+   "search_advanced": {
+    "coroutine": true,
+    "params": [
+     {"name": "page", "kind": "POSITIONAL_OR_KEYWORD", "default": "1", "position": 0},
+     {"name": "page_size", "kind": "POSITIONAL_OR_KEYWORD", "default": "100", "position": 1},
+     {"name": "username", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2},
+     {"name": "username_not", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3},
+     {"name": "password", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 4},
+     {"name": "password_not", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 5},
+     {"name": "url", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 6},
+     {"name": "url_not", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 7},
+     {"name": "url_domain", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 8},
+     {"name": "url_domain_not", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 9},
+     {"name": "url_host", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 10},
+     {"name": "url_host_not", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 11},
+     {"name": "username_hash", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 12},
+     {"name": "password_hash", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 13},
+     {"name": "url_scheme", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 14},
+     {"name": "url_scheme_not", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 15},
+     {"name": "url_port", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 16},
+     {"name": "url_port_not", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 17},
+     {"name": "url_tld", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 18},
+     {"name": "url_tld_not", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 19},
+     {"name": "is_email", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 20},
+     {"name": "email_domain", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 21},
+     {"name": "email_domain_not", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 22},
+     {"name": "email_host", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 23},
+     {"name": "email_host_not", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 24},
+     {"name": "email_tld", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 25},
+     {"name": "email_tld_not", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 26},
+     {"name": "password_strength", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 27},
+     {"name": "added_from", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 28},
+     {"name": "added_to", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 29},
+     {"name": "force_and", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 30}
+    ]
+   },
+   "search_email": {
+    "coroutine": true,
+    "params": [
+     {"name": "email", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "page", "kind": "POSITIONAL_OR_KEYWORD", "default": "1", "position": 1},
+     {"name": "page_size", "kind": "POSITIONAL_OR_KEYWORD", "default": "100", "position": 2},
+     {"name": "search", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3},
+     {"name": "is_email", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 4}
+    ]
+   },
+   "set_notification_active": {
+    "coroutine": true,
+    "params": [
+     {"name": "notification_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "is_active", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1}
+    ]
+   },
+   "set_unlocked_leak_list": {
+    "coroutine": true,
+    "params": [
+     {"name": "leak_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "list_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1}
+    ]
+   },
+   "test_notification_method": {
+    "coroutine": true,
+    "params": [{"name": "data", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0}]
+   },
+   "test_notification_method_with_data": {
+    "coroutine": true,
+    "params": [
+     {"name": "method_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "data", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1}
+    ]
+   },
+   "unlock_all_advanced": {
+    "coroutine": true,
+    "params": [
+     {"name": "filters", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "max_leaks", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1},
+     {"name": "list_id", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2}
+    ]
+   },
+   "unlock_domain_leaks": {
+    "coroutine": true,
+    "params": [
+     {"name": "domain", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "leak_type", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1},
+     {"name": "search", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2},
+     {"name": "is_email", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3},
+     {"name": "max_leaks", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 4},
+     {"name": "list_id", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 5}
+    ]
+   },
+   "unlock_email_leaks": {
+    "coroutine": true,
+    "params": [
+     {"name": "email", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "max_leaks", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1},
+     {"name": "list_id", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2},
+     {"name": "search", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3},
+     {"name": "is_email", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 4}
+    ]
+   },
+   "unlock_notification_run_leaks": {
+    "coroutine": true,
+    "params": [
+     {"name": "run_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "max_leaks", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1},
+     {"name": "search", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2},
+     {"name": "is_email", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 3}
+    ]
+   },
+   "unlock_specific_leaks": {
+    "coroutine": true,
+    "params": [
+     {"name": "leak_ids", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "target_list_id", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1}
+    ]
+   },
+   "update_notification": {
+    "coroutine": true,
+    "params": [
+     {"name": "notification_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "data", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1}
+    ]
+   },
+   "update_notification_method": {
+    "coroutine": true,
+    "params": [
+     {"name": "method_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "data", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1}
+    ]
+   },
+   "update_profile": {"coroutine": true, "params": [{"name": "data", "kind": "VAR_KEYWORD", "default": null, "position": null}]},
+   "update_team_member_role": {
+    "coroutine": true,
+    "params": [
+     {"name": "member_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "team_role", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1}
+    ]
+   },
+   "update_unlocked_list": {
+    "coroutine": true,
+    "params": [
+     {"name": "list_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "name", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 1},
+     {"name": "color", "kind": "POSITIONAL_OR_KEYWORD", "default": "None", "position": 2}
+    ]
+   },
+   "upsert_unlocked_leak_comment": {
+    "coroutine": true,
+    "params": [
+     {"name": "leak_id", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 0},
+     {"name": "comment", "kind": "POSITIONAL_OR_KEYWORD", "default": null, "position": 1}
+    ]
+   }
+  }
+ }
+}

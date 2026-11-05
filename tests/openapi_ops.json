@@ -3,101 +3,142 @@
  "operations": {
   "DELETE /notification_methods/{method_id}": {
    "body": [],
+   "operation_id": "delete_alert_channel",
    "path": [
     "method_id"
    ],
-   "query": []
+   "query": [],
+   "response": "MessageResponse",
+   "tag": "Alert Channels"
   },
   "DELETE /notifications/bulk": {
    "body": [
     "ids"
    ],
+   "operation_id": "delete_monitors",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "MessageResponse",
+   "tag": "Notifications"
   },
   "DELETE /notifications/{notification_id}": {
    "body": [],
+   "operation_id": "delete_monitor",
    "path": [
     "notification_id"
    ],
-   "query": []
+   "query": [],
+   "response": "MessageResponse",
+   "tag": "Notifications"
   },
   "DELETE /profile/team/members/{member_id}": {
    "body": [],
+   "operation_id": "remove_team_member",
    "path": [
     "member_id"
    ],
-   "query": []
+   "query": [],
+   "response": "TeamMemberResponse",
+   "tag": "Team"
   },
   "DELETE /profile/unlocked/combolists/{leak_id}/comment": {
    "body": [],
+   "operation_id": "delete_unlocked_combolist_comment",
    "path": [
     "leak_id"
    ],
-   "query": []
+   "query": [],
+   "response": "StatusSuccessResponse",
+   "tag": "Unlocked Combolists"
   },
   "DELETE /profile/unlocked/lists/{list_id}": {
    "body": [],
+   "operation_id": "delete_unlocked_list",
    "path": [
     "list_id"
    ],
-   "query": []
+   "query": [],
+   "response": "ListCleanupTasksOut",
+   "tag": "Unlocked Leaks Lists"
   },
   "DELETE /profile/unlocked/{leak_id}/comment": {
    "body": [],
+   "operation_id": "delete_unlocked_leak_comment",
    "path": [
     "leak_id"
    ],
-   "query": []
+   "query": [],
+   "response": "StatusSuccessResponse",
+   "tag": "Unlocked Leaks"
   },
   "GET /container/file_info": {
    "body": [],
+   "operation_id": "get_container_file_info",
    "path": [],
    "query": [
     "container_id",
     "entry_path"
-   ]
+   ],
+   "response": "RawFileInfoResponse",
+   "tag": "Raw Search"
   },
   "GET /container/subfolders": {
    "body": [],
+   "operation_id": "list_container_subfolders",
    "path": [],
    "query": [
     "container_id",
     "prefix",
     "page",
     "page_size"
-   ]
+   ],
+   "response": "SubfoldersResponse",
+   "tag": "Raw Search"
   },
   "GET /container/tree": {
    "body": [],
+   "operation_id": "browse_container_tree",
    "path": [],
    "query": [
     "container_id",
     "prefix",
     "page",
     "page_size"
-   ]
+   ],
+   "response": "ContainerTreeResponse",
+   "tag": "Raw Search"
   },
   "GET /exports": {
    "body": [],
+   "operation_id": "list_exports",
    "path": [],
    "query": [
     "page",
+    "export_id",
     "page_size"
-   ]
+   ],
+   "response": "PaginatedResponseExportBase",
+   "tag": "Exports"
   },
   "GET /live-stats": {
    "body": [],
+   "operation_id": "get_live_statistics",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "Union[LiveStatsResponse, StatsUnavailableResponse]",
+   "tag": "Stats"
   },
   "GET /notification_methods": {
    "body": [],
+   "operation_id": "list_alert_channels",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "List[NotificationMethodOut]",
+   "tag": "Alert Channels"
   },
   "GET /notification_runs": {
    "body": [],
+   "operation_id": "list_monitoring_runs",
    "path": [],
    "query": [
     "page",
@@ -108,17 +149,23 @@
     "sent_before",
     "notification_id",
     "q"
-   ]
+   ],
+   "response": "PaginatedNotificationRuns",
+   "tag": "Notifications Runs"
   },
   "GET /notification_runs/{run_id}": {
    "body": [],
+   "operation_id": "get_monitoring_run",
    "path": [
     "run_id"
    ],
-   "query": []
+   "query": [],
+   "response": "NotificationRunBase",
+   "tag": "Notifications Runs"
   },
   "GET /notification_runs/{run_id}/export": {
    "body": [],
+   "operation_id": "export_monitoring_run",
    "path": [
     "run_id"
    ],
@@ -126,44 +173,63 @@
     "search",
     "is_email",
     "format"
-   ]
+   ],
+   "response": "ExportResponse",
+   "tag": "Notifications Runs"
   },
   "GET /notification_runs/{run_id}/items": {
    "body": [],
+   "operation_id": "list_monitoring_run_items",
    "path": [
     "run_id"
    ],
    "query": [
     "page",
     "page_size"
-   ]
+   ],
+   "response": "PaginatedRunItemsResponse",
+   "tag": "Notifications Runs"
   },
   "GET /notifications": {
    "body": [],
+   "operation_id": "list_monitors",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "List[NotificationOut]",
+   "tag": "Notifications"
   },
   "GET /notifications/stats": {
    "body": [],
+   "operation_id": "get_monitoring_stats",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "NotificationStatsResponse",
+   "tag": "Notifications"
   },
   "GET /password-range": {
    "body": [],
+   "operation_id": "search_password_range",
    "path": [],
    "query": [
     "prefix",
     "limit",
-    "suffix_only"
-   ]
+    "suffix_only",
+    "datasets"
+   ],
+   "response": "PasswordRangeResponse",
+   "tag": "Password Range"
   },
   "GET /profile": {
    "body": [],
+   "operation_id": "get_profile",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "UserBase",
+   "tag": "Profile"
   },
   "GET /profile/activities/balance-logs": {
    "body": [],
+   "operation_id": "list_balance_history",
    "path": [],
    "query": [
     "page",
@@ -175,10 +241,13 @@
     "direction",
     "date_from",
     "date_to"
-   ]
+   ],
+   "response": "PaginatedResponseBalanceLogItem",
+   "tag": "Usage and Limits"
   },
   "GET /profile/activities/tasks": {
    "body": [],
+   "operation_id": "list_task_history",
    "path": [],
    "query": [
     "page",
@@ -191,39 +260,55 @@
     "scope",
     "date_from",
     "date_to"
-   ]
+   ],
+   "response": "PaginatedResponseUserTaskItem",
+   "tag": "Usage and Limits"
   },
   "GET /profile/preferences": {
    "body": [],
+   "operation_id": "get_preferences",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "UserPreferencesRead",
+   "tag": "Profile"
   },
   "GET /profile/raw/downloads": {
    "body": [],
+   "operation_id": "list_raw_downloads",
    "path": [],
    "query": [
     "page",
+    "file_id",
     "page_size",
     "search",
     "status"
-   ]
+   ],
+   "response": "PaginatedResponseDownloadLogItem",
+   "tag": "Profile Downloads"
   },
   "GET /profile/raw/unlocked-parts": {
    "body": [],
+   "operation_id": "list_unlocked_raw_parts",
    "path": [],
    "query": [
     "page",
     "page_size",
     "q"
-   ]
+   ],
+   "response": "PaginatedResponseRawUnlockedPartItem",
+   "tag": "Profile Downloads"
   },
   "GET /profile/team": {
    "body": [],
+   "operation_id": "get_team",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "TeamOverviewResponse",
+   "tag": "Team"
   },
   "GET /profile/unlocked": {
    "body": [],
+   "operation_id": "list_unlocked_leaks",
    "path": [],
    "query": [
     "page",
@@ -233,10 +318,13 @@
     "list_id",
     "list_none",
     "status"
-   ]
+   ],
+   "response": "PaginatedUnlockedLeaksResponse",
+   "tag": "Unlocked Leaks"
   },
   "GET /profile/unlocked/advanced": {
    "body": [],
+   "operation_id": "search_unlocked_leaks",
    "path": [],
    "query": [
     "page",
@@ -288,10 +376,13 @@
     "added_from",
     "added_to",
     "force_and"
-   ]
+   ],
+   "response": "PaginatedUnlockedLeaksResponse",
+   "tag": "Unlocked Leaks"
   },
   "GET /profile/unlocked/combolists": {
    "body": [],
+   "operation_id": "list_unlocked_combolists",
    "path": [],
    "query": [
     "page",
@@ -302,52 +393,81 @@
     "list_none",
     "status",
     "unlocked_at_min"
-   ]
+   ],
+   "response": "PaginatedUnlockedCombolistsResponse",
+   "tag": "Unlocked Combolists"
   },
   "GET /profile/unlocked/list-tasks/{task_id}": {
    "body": [],
+   "operation_id": "get_unlocked_list_task",
    "path": [
     "task_id"
    ],
-   "query": []
+   "query": [],
+   "response": "TaskStatusOut",
+   "tag": "Unlocked Leaks Lists"
   },
   "GET /profile/unlocked/lists": {
    "body": [],
+   "operation_id": "list_unlocked_lists",
    "path": [],
    "query": [
     "with_counts",
     "dataset"
-   ]
+   ],
+   "response": "List[UnlockedListOut]",
+   "tag": "Unlocked Leaks Lists"
   },
   "GET /profile/usage": {
    "body": [],
+   "operation_id": "get_usage",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "PlanUsageResponse",
+   "tag": "Usage and Limits"
+  },
+  "GET /rate-limits": {
+   "body": [],
+   "operation_id": "get_rate_limits",
+   "path": [],
+   "query": [],
+   "response": "RateLimitsResponse",
+   "tag": "Usage and Limits"
   },
   "GET /raw/download/preview": {
    "body": [],
+   "operation_id": "preview_raw_download",
    "path": [],
    "query": [
     "sha256_original",
     "container_id",
     "entry_path"
-   ]
+   ],
+   "response": "RawDownloadPreviewResponse",
+   "tag": "Raw Search"
   },
   "GET /raw/files": {
    "body": [],
+   "operation_id": "list_raw_files",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "List[RawFileAddedSummary]",
+   "tag": "Raw Search"
   },
   "GET /search/applications": {
    "body": [],
+   "operation_id": "suggest_applications",
    "path": [],
    "query": [
     "q",
     "limit"
-   ]
+   ],
+   "response": "ApplicationCatalogResponse",
+   "tag": "Search Applications"
   },
   "GET /search/applications/{package}/leaks": {
    "body": [],
+   "operation_id": "list_application_leaks",
    "path": [
     "package"
    ],
@@ -357,10 +477,13 @@
     "page",
     "page_size",
     "auto_unlock"
-   ]
+   ],
+   "response": "PaginatedLeaksResponse",
+   "tag": "Search Applications"
   },
   "GET /search/combolist/domain/{domain}": {
    "body": [],
+   "operation_id": "search_combolist_domain",
    "path": [
     "domain"
    ],
@@ -369,44 +492,62 @@
     "page",
     "page_size",
     "auto_unlock"
-   ]
+   ],
+   "response": "CombolistSearchResponse",
+   "tag": "Search Combolists"
   },
   "GET /search/combolist/domain/{domain}/report": {
    "body": [],
+   "operation_id": "get_combolist_domain_report",
    "path": [
     "domain"
    ],
-   "query": []
+   "query": [],
+   "response": "CombolistDomainReportResponse",
+   "tag": "Search Combolists"
   },
   "GET /search/dark-web/post/{post_id}": {
    "body": [],
+   "operation_id": "get_dark_web_post",
    "path": [
     "post_id"
    ],
-   "query": []
+   "query": [],
+   "response": "DarkWebItem",
+   "tag": "Dark Web Search"
   },
   "GET /search/dark-web/sources": {
    "body": [],
+   "operation_id": "list_dark_web_sources",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "DarkWebSourcesResponse",
+   "tag": "Dark Web Search"
   },
   "GET /search/dark-web/stats": {
    "body": [],
+   "operation_id": "get_dark_web_stats",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "DarkWebStatsResponse",
+   "tag": "Dark Web Search"
   },
   "GET /search/domain/{domain}": {
    "body": [],
+   "operation_id": "get_domain_report",
    "path": [
     "domain"
    ],
    "query": [
     "light",
     "include_search_count"
-   ]
+   ],
+   "response": "Union[DomainSearchLightResponse, DomainSearchResponse]",
+   "tag": "Search Domain"
   },
   "GET /search/domain/{domain}/all": {
    "body": [],
+   "operation_id": "list_domain_leaks",
    "path": [
     "domain"
    ],
@@ -416,10 +557,13 @@
     "page",
     "page_size",
     "auto_unlock"
-   ]
+   ],
+   "response": "PaginatedAllLeaksResponse",
+   "tag": "Search Domain"
   },
   "GET /search/domain/{domain}/customers": {
    "body": [],
+   "operation_id": "list_domain_customers",
    "path": [
     "domain"
    ],
@@ -429,10 +573,13 @@
     "search",
     "is_email",
     "auto_unlock"
-   ]
+   ],
+   "response": "PaginatedLeaksResponse",
+   "tag": "Search Domain"
   },
   "GET /search/domain/{domain}/employees": {
    "body": [],
+   "operation_id": "list_domain_employees",
    "path": [
     "domain"
    ],
@@ -442,17 +589,23 @@
     "page",
     "page_size",
     "auto_unlock"
-   ]
+   ],
+   "response": "PaginatedLeaksResponse",
+   "tag": "Search Domain"
   },
   "GET /search/domain/{domain}/report/pdf": {
    "body": [],
+   "operation_id": "get_domain_report_pdf",
    "path": [
     "domain"
    ],
-   "query": []
+   "query": [],
+   "response": "bytes",
+   "tag": "Search Domain"
   },
   "GET /search/domain/{domain}/subdomains": {
    "body": [],
+   "operation_id": "list_domain_subdomains",
    "path": [
     "domain"
    ],
@@ -460,10 +613,13 @@
     "search",
     "page",
     "page_size"
-   ]
+   ],
+   "response": "PaginatedResponseSubdomainOccurrences",
+   "tag": "Search Domain"
   },
   "GET /search/domain/{domain}/third_parties": {
    "body": [],
+   "operation_id": "list_domain_third_parties",
    "path": [
     "domain"
    ],
@@ -473,10 +629,13 @@
     "search",
     "is_email",
     "auto_unlock"
-   ]
+   ],
+   "response": "PaginatedLeaksResponse",
+   "tag": "Search Domain"
   },
   "GET /search/domain/{domain}/urls": {
    "body": [],
+   "operation_id": "list_domain_urls",
    "path": [
     "domain"
    ],
@@ -484,10 +643,13 @@
     "search",
     "page",
     "page_size"
-   ]
+   ],
+   "response": "PaginatedResponseURLOccurrences",
+   "tag": "Search Domain"
   },
   "GET /search/raw/part": {
    "body": [],
+   "operation_id": "get_raw_part",
    "path": [],
    "query": [
     "container_id",
@@ -496,34 +658,48 @@
     "trim_overlap",
     "overlap_chars",
     "auto_unlock"
-   ]
+   ],
+   "response": "PartResponse",
+   "tag": "Raw Search"
   },
   "GET /search/raw/parts": {
    "body": [],
+   "operation_id": "list_raw_parts",
    "path": [],
    "query": [
     "container_id",
     "entry_path",
     "page",
     "page_size"
-   ]
+   ],
+   "response": "PartsResponse",
+   "tag": "Raw Search"
   },
   "GET /stats": {
    "body": [],
+   "operation_id": "get_statistics",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "Union[StatsResponse, StatsUnavailableResponse]",
+   "tag": "Stats"
   },
   "GET /tasks/{task_id}": {
    "body": [],
+   "operation_id": "get_task_status",
    "path": [
     "task_id"
    ],
-   "query": []
+   "query": [],
+   "response": "TaskStatusOut",
+   "tag": "Tasks"
   },
   "GET /transparency-stats": {
    "body": [],
+   "operation_id": "get_transparency_statistics",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "Union[TransparencyStatsResponse, StatsUnavailableResponse]",
+   "tag": "Stats"
   },
   "PATCH /notification_methods/{method_id}": {
    "body": [
@@ -534,22 +710,29 @@
     "type",
     "value"
    ],
+   "operation_id": "update_alert_channel",
    "path": [
     "method_id"
    ],
-   "query": []
+   "query": [],
+   "response": "NotificationMethodOut",
+   "tag": "Alert Channels"
   },
   "PATCH /notification_methods/{method_id}/active": {
    "body": [
     "is_active"
    ],
+   "operation_id": "set_alert_channel_active",
    "path": [
     "method_id"
    ],
-   "query": []
+   "query": [],
+   "response": "NotificationMethodOut",
+   "tag": "Alert Channels"
   },
   "PATCH /notifications/{notification_id}": {
    "body": [
+    "absorb_ids",
     "auto_unlock",
     "bulk",
     "dataset",
@@ -560,19 +743,25 @@
     "type",
     "value"
    ],
+   "operation_id": "update_monitor",
    "path": [
     "notification_id"
    ],
-   "query": []
+   "query": [],
+   "response": "NotificationOut",
+   "tag": "Notifications"
   },
   "PATCH /notifications/{notification_id}/active": {
    "body": [
     "is_active"
    ],
+   "operation_id": "set_monitor_active",
    "path": [
     "notification_id"
    ],
-   "query": []
+   "query": [],
+   "response": "NotificationActiveResponse",
+   "tag": "Notifications"
   },
   "PATCH /profile": {
    "body": [
@@ -585,39 +774,52 @@
     "organization",
     "other_tax_id",
     "phone",
+    "po_number",
     "region",
     "tva_number",
     "zip_code"
    ],
+   "operation_id": "update_profile",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "UserBase",
+   "tag": "Profile"
   },
   "PATCH /profile/preferences": {
    "body": [
     "hide_passwords",
     "language"
    ],
+   "operation_id": "update_preferences",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "UserPreferencesRead",
+   "tag": "Profile"
   },
   "PATCH /profile/team/members/{member_id}": {
    "body": [
     "team_role"
    ],
+   "operation_id": "update_team_member_role",
    "path": [
     "member_id"
    ],
-   "query": []
+   "query": [],
+   "response": "TeamMemberResponse",
+   "tag": "Team"
   },
   "PATCH /profile/unlocked/lists/{list_id}": {
    "body": [
     "color",
     "name"
    ],
+   "operation_id": "update_unlocked_list",
    "path": [
     "list_id"
    ],
-   "query": []
+   "query": [],
+   "response": "UnlockedListOut",
+   "tag": "Unlocked Leaks Lists"
   },
   "POST /container/tree/resolve_path": {
    "body": [
@@ -625,8 +827,11 @@
     "entry_path",
     "options"
    ],
+   "operation_id": "resolve_container_path",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "ResolvePathResponse",
+   "tag": "Raw Search"
   },
   "POST /notification_methods": {
    "body": [
@@ -637,8 +842,11 @@
     "type",
     "value"
    ],
+   "operation_id": "create_alert_channel",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "NotificationMethodOut",
+   "tag": "Alert Channels"
   },
   "POST /notification_methods/test": {
    "body": [
@@ -649,17 +857,23 @@
     "type",
     "value"
    ],
+   "operation_id": "test_alert_channel",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "NotificationMethodTestResponse",
+   "tag": "Alert Channels"
   },
   "POST /notification_methods/{method_id}/test-with-data": {
    "body": [],
+   "operation_id": "send_alert_channel_test",
    "path": [
     "method_id"
    ],
    "query": [
     "notification_type"
-   ]
+   ],
+   "response": "NotificationMethodTestResponse",
+   "tag": "Alert Channels"
   },
   "POST /notification_runs/export": {
    "body": [
@@ -668,11 +882,15 @@
     "format",
     "run_ids"
    ],
+   "operation_id": "export_monitoring_runs",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "ExportResponse",
+   "tag": "Notifications Runs"
   },
   "POST /notification_runs/{run_id}/leaks/unlock": {
    "body": [],
+   "operation_id": "unlock_monitoring_run",
    "path": [
     "run_id"
    ],
@@ -681,10 +899,13 @@
     "search",
     "is_email",
     "list_id"
-   ]
+   ],
+   "response": "List[Union[LeakDetails, CombolistUnlockResult, DatabaseResult]]",
+   "tag": "Notifications Runs"
   },
   "POST /notifications": {
    "body": [
+    "absorb_ids",
     "auto_unlock",
     "bulk",
     "dataset",
@@ -695,17 +916,47 @@
     "type",
     "value"
    ],
+   "operation_id": "create_monitor",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "Union[List[NotificationOut], NotificationOut]",
+   "tag": "Notifications"
+  },
+  "POST /notifications/scope_all/bulk": {
+   "body": [
+    "ids",
+    "merge"
+   ],
+   "operation_id": "extend_monitors_to_all_datasets",
+   "path": [],
+   "query": [],
+   "response": "ScopeAllBulkResponse",
+   "tag": "Notifications"
+  },
+  "POST /notifications/{notification_id}/scope_all": {
+   "body": [
+    "absorb_ids",
+    "reactivate"
+   ],
+   "operation_id": "extend_monitor_to_all_datasets",
+   "path": [
+    "notification_id"
+   ],
+   "query": [],
+   "response": "NotificationOut",
+   "tag": "Notifications"
   },
   "POST /profile/raw/downloads/{download_id}/file": {
    "body": [],
+   "operation_id": "download_raw_file",
    "path": [
     "download_id"
    ],
    "query": [
     "token"
-   ]
+   ],
+   "response": "Any",
+   "tag": "Profile Downloads"
   },
   "POST /profile/team/invitations": {
    "body": [
@@ -713,27 +964,39 @@
     "name",
     "role"
    ],
+   "operation_id": "invite_team_member",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "TeamInvitationResponse",
+   "tag": "Team"
   },
   "POST /profile/team/invitations/{invitation_id}/resend": {
    "body": [],
+   "operation_id": "resend_team_invitation",
    "path": [
     "invitation_id"
    ],
-   "query": []
+   "query": [],
+   "response": "TeamInvitationResponse",
+   "tag": "Team"
   },
   "POST /profile/team/invitations/{invitation_id}/revoke": {
    "body": [],
+   "operation_id": "revoke_team_invitation",
    "path": [
     "invitation_id"
    ],
-   "query": []
+   "query": [],
+   "response": "TeamInvitationResponse",
+   "tag": "Team"
   },
   "POST /profile/team/leave": {
    "body": [],
+   "operation_id": "leave_team",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "MessageResponse",
+   "tag": "Team"
   },
   "POST /profile/unlocked/advanced/export": {
    "body": [
@@ -785,6 +1048,7 @@
     "username_not",
     "username_not_match_type"
    ],
+   "operation_id": "export_unlocked_leaks_advanced",
    "path": [],
    "query": [
     "list_id",
@@ -792,7 +1056,9 @@
     "status",
     "format",
     "unlocked_at_min"
-   ]
+   ],
+   "response": "ExportResponse",
+   "tag": "Unlocked Leaks"
   },
   "POST /profile/unlocked/bulk-status": {
    "body": [
@@ -805,8 +1071,11 @@
     "status_filter",
     "target_status"
    ],
+   "operation_id": "bulk_set_unlocked_leak_status",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "TaskStatusOut",
+   "tag": "Unlocked Leaks"
   },
   "POST /profile/unlocked/combolists/advanced": {
    "body": [
@@ -818,11 +1087,14 @@
     "status",
     "unlocked_at_min"
    ],
+   "operation_id": "search_unlocked_combolists",
    "path": [],
    "query": [
     "page",
     "page_size"
-   ]
+   ],
+   "response": "PaginatedUnlockedCombolistsResponse",
+   "tag": "Unlocked Combolists"
   },
   "POST /profile/unlocked/combolists/export": {
    "body": [
@@ -834,10 +1106,13 @@
     "status",
     "unlocked_at_min"
    ],
+   "operation_id": "export_unlocked_combolists",
    "path": [],
    "query": [
     "format"
-   ]
+   ],
+   "response": "ExportResponse",
+   "tag": "Unlocked Combolists"
   },
   "POST /profile/unlocked/export": {
    "body": [
@@ -848,18 +1123,24 @@
     "status",
     "unlocked_at_min"
    ],
+   "operation_id": "export_unlocked_leaks",
    "path": [],
    "query": [
     "format"
-   ]
+   ],
+   "response": "ExportResponse",
+   "tag": "Unlocked Leaks"
   },
   "POST /profile/unlocked/lists": {
    "body": [
     "color",
     "name"
    ],
+   "operation_id": "create_unlocked_list",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "UnlockedListOut",
+   "tag": "Unlocked Leaks Lists"
   },
   "POST /profile/unlocked/lists/bulk-assign": {
    "body": [
@@ -872,25 +1153,34 @@
     "status_filter",
     "target_list_id"
    ],
+   "operation_id": "bulk_assign_unlocked_list",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "TaskStatusOut",
+   "tag": "Unlocked Leaks Lists"
   },
   "POST /profile/unlocked/lists/{list_id}/clear": {
    "body": [],
+   "operation_id": "clear_unlocked_list",
    "path": [
     "list_id"
    ],
-   "query": []
+   "query": [],
+   "response": "ListCleanupTasksOut",
+   "tag": "Unlocked Leaks Lists"
   },
   "POST /raw/download": {
    "body": [],
+   "operation_id": "create_raw_download",
    "path": [],
    "query": [
     "sha256_original",
     "container_id",
     "entry_path",
     "expires_in"
-   ]
+   ],
+   "response": "DownloadSourceResponse",
+   "tag": "Raw Search"
   },
   "POST /search/advanced": {
    "body": [
@@ -938,12 +1228,15 @@
     "username_not",
     "username_not_match_type"
    ],
+   "operation_id": "search_advanced",
    "path": [],
    "query": [
     "page",
     "page_size",
     "auto_unlock"
-   ]
+   ],
+   "response": "PaginatedLeaksResponse",
+   "tag": "Search Advanced"
   },
   "POST /search/advanced/export": {
    "body": [
@@ -991,10 +1284,13 @@
     "username_not",
     "username_not_match_type"
    ],
+   "operation_id": "export_advanced",
    "path": [],
    "query": [
     "format"
-   ]
+   ],
+   "response": "ExportResponse",
+   "tag": "Search Advanced"
   },
   "POST /search/advanced/export_urls": {
    "body": [
@@ -1042,10 +1338,13 @@
     "username_not",
     "username_not_match_type"
    ],
+   "operation_id": "export_advanced_urls",
    "path": [],
    "query": [
     "format"
-   ]
+   ],
+   "response": "ExportResponse",
+   "tag": "Search Advanced"
   },
   "POST /search/advanced/unlock": {
    "body": [
@@ -1093,11 +1392,14 @@
     "username_not",
     "username_not_match_type"
    ],
+   "operation_id": "unlock_advanced",
    "path": [],
    "query": [
     "max",
     "list_id"
-   ]
+   ],
+   "response": "List[LeakDetails]",
+   "tag": "Search Advanced"
   },
   "POST /search/advanced/unlock/task": {
    "body": [
@@ -1145,11 +1447,14 @@
     "username_not",
     "username_not_match_type"
    ],
+   "operation_id": "queue_advanced_unlock",
    "path": [],
    "query": [
     "max",
     "list_id"
-   ]
+   ],
+   "response": "UnlockTaskQueuedResponse",
+   "tag": "Search Advanced"
   },
   "POST /search/applications/{package}/export": {
    "body": [
@@ -1157,6 +1462,7 @@
     "is_email",
     "search"
    ],
+   "operation_id": "export_application",
    "path": [
     "package"
    ],
@@ -1164,10 +1470,13 @@
     "search",
     "is_email",
     "format"
-   ]
+   ],
+   "response": "ExportResponse",
+   "tag": "Search Applications"
   },
   "POST /search/applications/{package}/unlock": {
    "body": [],
+   "operation_id": "unlock_application",
    "path": [
     "package"
    ],
@@ -1176,10 +1485,13 @@
     "is_email",
     "max",
     "list_id"
-   ]
+   ],
+   "response": "List[LeakDetails]",
+   "tag": "Search Applications"
   },
   "POST /search/applications/{package}/unlock/task": {
    "body": [],
+   "operation_id": "queue_application_unlock",
    "path": [
     "package"
    ],
@@ -1188,7 +1500,9 @@
     "is_email",
     "max",
     "list_id"
-   ]
+   ],
+   "response": "UnlockTaskQueuedResponse",
+   "tag": "Search Applications"
   },
   "POST /search/combolist/advanced": {
    "body": [
@@ -1212,24 +1526,30 @@
     "username_not",
     "username_not_match_type"
    ],
+   "operation_id": "search_combolist_advanced",
    "path": [],
    "query": [
     "page",
     "page_size",
     "auto_unlock"
-   ]
+   ],
+   "response": "CombolistSearchResponse",
+   "tag": "Search Combolists"
   },
   "POST /search/combolist/email": {
    "body": [
     "email",
     "search"
    ],
+   "operation_id": "search_combolist_email",
    "path": [],
    "query": [
     "page",
     "page_size",
     "auto_unlock"
-   ]
+   ],
+   "response": "CombolistSearchResponse",
+   "tag": "Search Combolists"
   },
   "POST /search/combolist/export": {
    "body": [
@@ -1238,18 +1558,24 @@
     "search",
     "value"
    ],
+   "operation_id": "export_combolist",
    "path": [],
    "query": [
     "format"
-   ]
+   ],
+   "response": "ExportResponse",
+   "tag": "Search Combolists"
   },
   "POST /search/combolist/unlock": {
    "body": [
     "leak_ids",
     "target_list_id"
    ],
+   "operation_id": "unlock_combolist",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "List[CombolistUnlockResult]",
+   "tag": "Search Combolists"
   },
   "POST /search/combolist/unlock/task": {
    "body": [
@@ -1258,23 +1584,29 @@
     "search",
     "value"
    ],
+   "operation_id": "queue_combolist_unlock",
    "path": [],
    "query": [
     "max",
     "list_id"
-   ]
+   ],
+   "response": "TaskStatusOut",
+   "tag": "Search Combolists"
   },
   "POST /search/combolist/username": {
    "body": [
     "search",
     "username"
    ],
+   "operation_id": "search_combolist_username",
    "path": [],
    "query": [
     "page",
     "page_size",
     "auto_unlock"
-   ]
+   ],
+   "response": "CombolistSearchResponse",
+   "tag": "Search Combolists"
   },
   "POST /search/dark-web": {
    "body": [
@@ -1285,6 +1617,7 @@
     "source_url",
     "title"
    ],
+   "operation_id": "search_dark_web",
    "path": [],
    "query": [
     "page",
@@ -1294,31 +1627,39 @@
     "date_to",
     "sort_by",
     "sort_order"
-   ]
+   ],
+   "response": "DarkWebSearchResponse",
+   "tag": "Dark Web Search"
   },
   "POST /search/domain/{domain}/subdomains/export": {
    "body": [
     "search"
    ],
+   "operation_id": "export_domain_subdomains",
    "path": [
     "domain"
    ],
    "query": [
     "search",
     "format"
-   ]
+   ],
+   "response": "bytes",
+   "tag": "Search Domain"
   },
   "POST /search/domain/{domain}/urls/export": {
    "body": [
     "search"
    ],
+   "operation_id": "export_domain_urls",
    "path": [
     "domain"
    ],
    "query": [
     "search",
     "format"
-   ]
+   ],
+   "response": "bytes",
+   "tag": "Search Domain"
   },
   "POST /search/domain/{domain}/{leak_type}/export": {
    "body": [
@@ -1326,6 +1667,7 @@
     "is_email",
     "search"
    ],
+   "operation_id": "export_domain",
    "path": [
     "domain",
     "leak_type"
@@ -1334,10 +1676,13 @@
     "search",
     "is_email",
     "format"
-   ]
+   ],
+   "response": "ExportResponse",
+   "tag": "Search Domain"
   },
   "POST /search/domain/{domain}/{leak_type}/unlock": {
    "body": [],
+   "operation_id": "unlock_domain",
    "path": [
     "domain",
     "leak_type"
@@ -1347,10 +1692,13 @@
     "is_email",
     "max",
     "list_id"
-   ]
+   ],
+   "response": "List[LeakDetails]",
+   "tag": "Search Domain"
   },
   "POST /search/domain/{domain}/{leak_type}/unlock/task": {
    "body": [],
+   "operation_id": "queue_domain_unlock",
    "path": [
     "domain",
     "leak_type"
@@ -1360,16 +1708,22 @@
     "is_email",
     "max",
     "list_id"
-   ]
+   ],
+   "response": "UnlockTaskQueuedResponse",
+   "tag": "Search Domain"
   },
   "POST /search/domains/locked-exists": {
    "body": [
     "categories",
+    "datasets",
     "domains",
     "include_counts"
    ],
+   "operation_id": "check_domains_locked",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "DomainMassResponse",
+   "tag": "Search Domain"
   },
   "POST /search/email": {
    "body": [
@@ -1377,12 +1731,15 @@
     "is_email",
     "search"
    ],
+   "operation_id": "search_email",
    "path": [],
    "query": [
     "page",
     "page_size",
     "auto_unlock"
-   ]
+   ],
+   "response": "EmailSearchResponse",
+   "tag": "Search Email"
   },
   "POST /search/email/export": {
    "body": [
@@ -1390,10 +1747,13 @@
     "is_email",
     "search"
    ],
+   "operation_id": "export_email",
    "path": [],
    "query": [
     "format"
-   ]
+   ],
+   "response": "ExportResponse",
+   "tag": "Search Email"
   },
   "POST /search/email/unlock": {
    "body": [
@@ -1401,11 +1761,14 @@
     "is_email",
     "search"
    ],
+   "operation_id": "unlock_email",
    "path": [],
    "query": [
     "max",
     "list_id"
-   ]
+   ],
+   "response": "List[LeakDetails]",
+   "tag": "Search Email"
   },
   "POST /search/email/unlock/task": {
    "body": [
@@ -1413,19 +1776,26 @@
     "is_email",
     "search"
    ],
+   "operation_id": "queue_email_unlock",
    "path": [],
    "query": [
     "max",
     "list_id"
-   ]
+   ],
+   "response": "UnlockTaskQueuedResponse",
+   "tag": "Search Email"
   },
   "POST /search/emails/locked-exists": {
    "body": [
+    "datasets",
     "emails",
     "include_counts"
    ],
+   "operation_id": "check_emails_locked",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "EmailMassResponse",
+   "tag": "Search Email"
   },
   "POST /search/raw": {
    "body": [
@@ -1452,13 +1822,16 @@
     "q",
     "q_exact"
    ],
+   "operation_id": "search_raw",
    "path": [],
    "query": [
     "page",
     "page_size",
     "cursor",
     "dedup"
-   ]
+   ],
+   "response": "RawSearchResponse",
+   "tag": "Raw Search"
   },
   "POST /search/raw/count": {
    "body": [
@@ -1485,10 +1858,13 @@
     "q",
     "q_exact"
    ],
+   "operation_id": "count_raw",
    "path": [],
    "query": [
     "dedup"
-   ]
+   ],
+   "response": "RawCountResponse",
+   "tag": "Raw Search"
   },
   "POST /search/raw/export": {
    "body": [
@@ -1515,11 +1891,14 @@
     "q",
     "q_exact"
    ],
+   "operation_id": "export_raw",
    "path": [],
    "query": [
     "export",
     "dedup"
-   ]
+   ],
+   "response": "ExportResponse",
+   "tag": "Raw Search"
   },
   "POST /search/raw/unlock/task": {
    "body": [
@@ -1546,82 +1925,109 @@
     "q",
     "q_exact"
    ],
+   "operation_id": "queue_raw_unlock",
    "path": [],
    "query": [
     "max",
     "dedup"
-   ]
+   ],
+   "response": "UnlockTaskQueuedResponse",
+   "tag": "Raw Search"
   },
   "POST /unlock": {
    "body": [
     "leak_ids",
     "target_list_id"
    ],
+   "operation_id": "unlock_by_id",
    "path": [],
-   "query": []
+   "query": [],
+   "response": "List[LeakDetails]",
+   "tag": "Unlock"
   },
   "PUT /notification_runs/{run_id}/status": {
    "body": [
     "status"
    ],
+   "operation_id": "set_monitoring_run_status",
    "path": [
     "run_id"
    ],
-   "query": []
+   "query": [],
+   "response": "StatusSuccessResponse",
+   "tag": "Notifications Runs"
   },
   "PUT /profile/unlocked/combolists/{leak_id}/comment": {
    "body": [
     "comment"
    ],
+   "operation_id": "set_unlocked_combolist_comment",
    "path": [
     "leak_id"
    ],
-   "query": []
+   "query": [],
+   "response": "StatusSuccessResponse",
+   "tag": "Unlocked Combolists"
   },
   "PUT /profile/unlocked/combolists/{leak_id}/list": {
    "body": [
     "list_id"
    ],
+   "operation_id": "set_unlocked_combolist_list",
    "path": [
     "leak_id"
    ],
-   "query": []
+   "query": [],
+   "response": "StatusSuccessResponse",
+   "tag": "Unlocked Combolists"
   },
   "PUT /profile/unlocked/combolists/{leak_id}/status": {
    "body": [
     "status"
    ],
+   "operation_id": "set_unlocked_combolist_status",
    "path": [
     "leak_id"
    ],
-   "query": []
+   "query": [],
+   "response": "StatusSuccessResponse",
+   "tag": "Unlocked Combolists"
   },
   "PUT /profile/unlocked/{leak_id}/comment": {
    "body": [
     "comment"
    ],
+   "operation_id": "set_unlocked_leak_comment",
    "path": [
     "leak_id"
    ],
-   "query": []
+   "query": [],
+   "response": "StatusSuccessResponse",
+   "tag": "Unlocked Leaks"
   },
   "PUT /profile/unlocked/{leak_id}/list": {
    "body": [
     "list_id"
    ],
+   "operation_id": "set_unlocked_leak_list",
    "path": [
     "leak_id"
    ],
-   "query": []
+   "query": [],
+   "response": "StatusSuccessResponse",
+   "tag": "Unlocked Leaks"
   },
   "PUT /profile/unlocked/{leak_id}/status": {
    "body": [
     "status"
    ],
+   "operation_id": "set_unlocked_leak_status",
    "path": [
     "leak_id"
    ],
-   "query": []
+   "query": [],
+   "response": "StatusSuccessResponse",
+   "tag": "Unlocked Leaks"
   }
  },
  "source": "https://api.leakradar.io/openapi.json"

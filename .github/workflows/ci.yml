@@ -1,0 +1,88 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"] # a version tag runs this workflow through publish.yml
+  pull_request:
+  workflow_call:
+
+permissions:
+  contents: read
+
+# Actions are pinned to a full commit SHA (the version in the comment), like the organisation's
+# other repositories: a moved tag cannot change what runs here.
+jobs:
+  test:
+    name: Python ${{ matrix.python }}, httpx ${{ matrix.httpx }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # Official images keep every supported Python (3.8 included) whatever the runner image ships.
+    container: python:${{ matrix.python }}-slim
+    env:
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+      PIP_ROOT_USER_ACTION: ignore
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+        httpx: ["0.27.*", "latest"]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install httpx ${{ matrix.httpx }}
+        env:
+          HTTPX: ${{ matrix.httpx }}
+        run: |
+          if [ "$HTTPX" = latest ]; then
+            # The newest httpx the package accepts (below 1.0), the speedups extra, and trio for
+            # the test that runs the async client on trio (skipped where trio is missing).
+            python -m pip install --upgrade "httpx<1" "ujson>=5.4" trio
+          else
+            python -m pip install "httpx==$HTTPX"  # oldest supported httpx, standard json module
+          fi
+      # Also runs scripts/generate_sync.py in-process (tests/test_sync.py): the committed sync
+      # client must be what every Python version generates from leakradar/client.py.
+      - run: python -m unittest discover -s tests -v
+
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12" # generated files are compared byte for byte: the Python they are made with
+      - run: python -m pip install -r requirements.txt
+      - run: ruff check
+      - run: mypy leakradar
+      - name: The sync client is generated from leakradar/client.py
+        # leakradar/types.py is not checked here: scripts/generate_types.py --check fetches the live
+        # OpenAPI spec, and a push must not depend on the network or on the API being deployed.
+        # drift.yml regenerates the types and tests/openapi_ops.json from the live spec every day.
+        run: python scripts/generate_sync.py --check
+
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - run: python -m pip install build twine
+      - run: python -m build # the sdist, then the wheel built from it
+      - run: python -m twine check --strict dist/*
+      - name: The wheel installs and imports, pre-releases of its dependencies allowed
+        # What a tool that allows pre-releases installs: the newest versions the package's own
+        # requirements accept (the httpx 1.0 pre-releases would break the import). Outside the
+        # checkout, so that the installed wheel is imported, not the source tree.
+        run: |
+          python -m venv /tmp/wheel-check
+          /tmp/wheel-check/bin/python -m pip install --pre dist/*.whl
+          cd /tmp
+          /tmp/wheel-check/bin/python -c "import httpx, leakradar, leakradar.webhooks; print(leakradar.__version__, 'with httpx', httpx.__version__)"
+      - name: The wheel ships every module and py.typed
+        run: |
+          unzip -Z1 dist/*.whl > wheel-files.txt
+          for file in $(git ls-files 'leakradar/*.py' leakradar/py.typed); do
+            grep -qxF "$file" wheel-files.txt || { echo "::error::$file is missing from the wheel"; exit 1; }
+          done

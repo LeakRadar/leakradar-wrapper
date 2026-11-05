@@ -1,0 +1,1115 @@
+{
+ "version": "0.1.3",
+ "token": "lr_test_compat_0123456789abcdef",
+ "storage_url": "https://leakradar-raw.s3.storage.example/downloads/55/Passwords.zip?X-Amz-Expires=900&X-Amz-Signature=5c0ffee",
+ "methods": {
+  "aclose": [{"case": "default", "args": [], "kwargs": {}, "requests": []}],
+  "create_notification": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {
+     "data": {
+      "type": "domain",
+      "value": "example.com",
+      "method_id": 7,
+      "dataset": "stealer_logs",
+      "second_type": "employees",
+      "auto_unlock": true,
+      "max_points": 5000
+     }
+    },
+    "requests": [
+     {
+      "method": "POST",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/notifications",
+      "query": [],
+      "json": {
+       "type": "domain",
+       "value": "example.com",
+       "method_id": 7,
+       "dataset": "stealer_logs",
+       "second_type": "employees",
+       "auto_unlock": true,
+       "max_points": 5000
+      },
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": "application/json",
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "POST /notifications"
+     }
+    ]
+   }
+  ],
+  "create_notification_method": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"data": {"type": "webhook", "value": "https://hooks.example.com/leakradar", "name": "SOC webhook"}},
+    "requests": [
+     {
+      "method": "POST",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/notification_methods",
+      "query": [],
+      "json": {"type": "webhook", "value": "https://hooks.example.com/leakradar", "name": "SOC webhook"},
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": "application/json",
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "POST /notification_methods"
+     }
+    ]
+   }
+  ],
+  "delete_notification": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"notification_id": 42},
+    "requests": [
+     {
+      "method": "DELETE",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/notifications/42",
+      "query": [],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "DELETE /notifications/{notification_id}"
+     }
+    ]
+   }
+  ],
+  "delete_notification_method": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"method_id": 7},
+    "requests": [
+     {
+      "method": "DELETE",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/notification_methods/7",
+      "query": [],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "DELETE /notification_methods/{method_id}"
+     }
+    ]
+   }
+  ],
+  "export_advanced": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {
+     "username": ["john.doe", "jdoe"],
+     "username_not": "test.user",
+     "password": "Summer2024!",
+     "password_not": "123456",
+     "url": "login.example.com/auth",
+     "url_not": "logout",
+     "url_domain": "example.com",
+     "url_domain_not": "example.org",
+     "url_host": "vpn.example.com",
+     "url_host_not": "www.example.com",
+     "url_scheme": "https",
+     "url_port": [443, 8443],
+     "url_tld": "com",
+     "is_email": true,
+     "email_domain": "example.com",
+     "email_domain_not": "gmail.com",
+     "email_host": "mail.example.com",
+     "email_host_not": "smtp.example.com",
+     "email_tld": "com",
+     "password_strength": "weak",
+     "added_from": "2025-01-01T00:00:00Z",
+     "added_to": "2025-12-31T23:59:59Z"
+    },
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/advanced/export",
+      "query": [
+       ["username", "john.doe"],
+       ["username", "jdoe"],
+       ["username_not", "test.user"],
+       ["password", "Summer2024!"],
+       ["password_not", "123456"],
+       ["url", "login.example.com/auth"],
+       ["url_not", "logout"],
+       ["url_domain", "example.com"],
+       ["url_domain_not", "example.org"],
+       ["url_host", "vpn.example.com"],
+       ["url_host_not", "www.example.com"],
+       ["url_scheme", "https"],
+       ["url_port", "443"],
+       ["url_port", "8443"],
+       ["url_tld", "com"],
+       ["is_email", "true"],
+       ["email_domain", "example.com"],
+       ["email_domain_not", "gmail.com"],
+       ["email_host", "mail.example.com"],
+       ["email_host_not", "smtp.example.com"],
+       ["email_tld", "com"],
+       ["password_strength", "weak"],
+       ["added_from", "2025-01-01T00:00:00Z"],
+       ["added_to", "2025-12-31T23:59:59Z"]
+      ],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": null
+     }
+    ]
+   }
+  ],
+  "export_advanced_urls": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"url_domain": "example.com", "url_host_not": "www.example.com"},
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/advanced/export_urls",
+      "query": [["url_domain", "example.com"], ["url_host_not", "www.example.com"]],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": null
+     }
+    ]
+   }
+  ],
+  "export_domain_leaks": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"domain": "example.com", "leak_type": "employees", "search": "vpn", "is_email": true},
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/domain/example.com/employees/export",
+      "query": [["search", "vpn"], ["is_email", "true"]],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": null
+     }
+    ]
+   }
+  ],
+  "export_domain_subdomains": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"domain": "example.com", "search": "dev"},
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/domain/example.com/subdomains/export",
+      "query": [["search", "dev"]],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": null
+     }
+    ]
+   }
+  ],
+  "export_domain_urls": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"domain": "example.com", "search": "login"},
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/domain/example.com/urls/export",
+      "query": [["search", "login"]],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": null
+     }
+    ]
+   }
+  ],
+  "export_email_leaks": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"email": "john.doe@example.com", "search": "github", "is_email": true},
+    "requests": [
+     {
+      "method": "POST",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/email/export",
+      "query": [],
+      "json": {"email": "john.doe@example.com", "search": "github", "is_email": true},
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": "application/json",
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "POST /search/email/export"
+     }
+    ]
+   }
+  ],
+  "export_metadata_leaks": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"meta_id": "m_5d41402abc4b2a76", "search": "john", "is_email": true},
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/metadata/m_5d41402abc4b2a76/leaks/export",
+      "query": [["search", "john"], ["is_email", "true"]],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": null
+     }
+    ]
+   }
+  ],
+  "export_unlocked_leaks": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"search": "vpn", "is_email": true, "unlocked_at_min": "2025-10-01T00:00:00Z"},
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/profile/unlocked/export",
+      "query": [["search", "vpn"], ["is_email", "true"], ["unlocked_at_min", "2025-10-01T00:00:00Z"]],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": null
+     }
+    ]
+   }
+  ],
+  "get_domain_customers": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"domain": "example.com", "page": 2, "page_size": 250, "search": "vpn", "is_email": true},
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/domain/example.com/customers",
+      "query": [["page", "2"], ["page_size", "250"], ["search", "vpn"], ["is_email", "true"]],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "GET /search/domain/{domain}/customers"
+     }
+    ]
+   }
+  ],
+  "get_domain_employees": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"domain": "example.com", "page": 2, "page_size": 250, "search": "vpn", "is_email": true},
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/domain/example.com/employees",
+      "query": [["page", "2"], ["page_size", "250"], ["search", "vpn"], ["is_email", "true"]],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "GET /search/domain/{domain}/employees"
+     }
+    ]
+   }
+  ],
+  "get_domain_report": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"domain": "example.com"},
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/domain/example.com",
+      "query": [],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "GET /search/domain/{domain}"
+     }
+    ]
+   }
+  ],
+  "get_domain_subdomains": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"domain": "example.com", "page": 2, "page_size": 250, "search": "dev"},
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/domain/example.com/subdomains",
+      "query": [["page", "2"], ["page_size", "250"], ["search", "dev"]],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "GET /search/domain/{domain}/subdomains"
+     }
+    ]
+   }
+  ],
+  "get_domain_third_parties": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"domain": "example.com", "page": 2, "page_size": 250, "search": "vpn", "is_email": true},
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/domain/example.com/third_parties",
+      "query": [["page", "2"], ["page_size", "250"], ["search", "vpn"], ["is_email", "true"]],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "GET /search/domain/{domain}/third_parties"
+     }
+    ]
+   }
+  ],
+  "get_domain_urls": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"domain": "example.com", "page": 2, "page_size": 500, "search": "login"},
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/domain/example.com/urls",
+      "query": [["page", "2"], ["page_size", "500"], ["search", "login"]],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "GET /search/domain/{domain}/urls"
+     }
+    ]
+   }
+  ],
+  "get_profile": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {},
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/profile",
+      "query": [],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "GET /profile"
+     }
+    ]
+   }
+  ],
+  "get_unlocked_leaks": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"page": 2, "page_size": 500, "search": "vpn", "is_email": true},
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/profile/unlocked",
+      "query": [["page", "2"], ["page_size", "500"], ["search", "vpn"], ["is_email", "true"]],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "GET /profile/unlocked"
+     }
+    ]
+   }
+  ],
+  "list_exports": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"page": 2, "page_size": 50},
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/exports",
+      "query": [["page", "2"], ["page_size", "50"]],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "GET /exports"
+     }
+    ]
+   }
+  ],
+  "list_notification_methods": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {},
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/notification_methods",
+      "query": [],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "GET /notification_methods"
+     }
+    ]
+   }
+  ],
+  "list_notifications": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {},
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/notifications",
+      "query": [],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "GET /notifications"
+     }
+    ]
+   }
+  ],
+  "metadata_detail": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"meta_id": "m_5d41402abc4b2a76"},
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/metadata/m_5d41402abc4b2a76",
+      "query": [],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": null
+     }
+    ]
+   }
+  ],
+  "metadata_leaks": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"meta_id": "m_5d41402abc4b2a76", "page": 2, "page_size": 50, "search": "john", "is_email": true},
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/metadata/m_5d41402abc4b2a76/leaks",
+      "query": [["page", "2"], ["page_size", "50"], ["search", "john"], ["is_email", "true"]],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": null
+     }
+    ]
+   }
+  ],
+  "metadata_leaks_count": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"meta_id": "m_5d41402abc4b2a76"},
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/metadata/m_5d41402abc4b2a76/leaks/count",
+      "query": [],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": null
+     }
+    ]
+   }
+  ],
+  "search_advanced": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {
+     "page": 2,
+     "page_size": 50,
+     "username": ["john.doe", "jdoe"],
+     "username_not": "test.user",
+     "password": "Summer2024!",
+     "password_not": "123456",
+     "url": "login.example.com/auth",
+     "url_not": "logout",
+     "url_domain": "example.com",
+     "url_domain_not": "example.org",
+     "url_host": "vpn.example.com",
+     "url_host_not": "www.example.com",
+     "url_scheme": "https",
+     "url_port": [443, 8443],
+     "url_tld": "com",
+     "is_email": true,
+     "email_domain": "example.com",
+     "email_domain_not": "gmail.com",
+     "email_host": "mail.example.com",
+     "email_host_not": "smtp.example.com",
+     "email_tld": "com",
+     "password_strength": "weak",
+     "added_from": "2025-01-01T00:00:00Z",
+     "added_to": "2025-12-31T23:59:59Z"
+    },
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/advanced",
+      "query": [
+       ["page", "2"],
+       ["page_size", "50"],
+       ["url", "login.example.com/auth"],
+       ["username", "john.doe"],
+       ["username", "jdoe"],
+       ["username_not", "test.user"],
+       ["password", "Summer2024!"],
+       ["password_not", "123456"],
+       ["added_from", "2025-01-01T00:00:00Z"],
+       ["added_to", "2025-12-31T23:59:59Z"],
+       ["url_domain", "example.com"],
+       ["url_domain_not", "example.org"],
+       ["url_host", "vpn.example.com"],
+       ["url_host_not", "www.example.com"],
+       ["url_not", "logout"],
+       ["url_scheme", "https"],
+       ["url_port", "443"],
+       ["url_port", "8443"],
+       ["url_tld", "com"],
+       ["is_email", "true"],
+       ["email_domain", "example.com"],
+       ["email_domain_not", "gmail.com"],
+       ["email_host", "mail.example.com"],
+       ["email_host_not", "smtp.example.com"],
+       ["email_tld", "com"],
+       ["password_strength", "weak"]
+      ],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": null
+     }
+    ]
+   }
+  ],
+  "search_email": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"email": "john.doe@example.com", "page": 2, "search": "github", "is_email": true},
+    "requests": [
+     {
+      "method": "POST",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/email",
+      "query": [["page", "2"]],
+      "json": {"email": "john.doe@example.com", "search": "github", "is_email": true},
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": "application/json",
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "POST /search/email"
+     }
+    ]
+   }
+  ],
+  "search_metadata": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"filters": {"url_domain": "example.com"}, "page": 2},
+    "requests": [
+     {
+      "method": "POST",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/metadata",
+      "query": [["page", "2"]],
+      "json": {"url_domain": "example.com"},
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": "application/json",
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": null
+     }
+    ]
+   }
+  ],
+  "set_notification_active": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"notification_id": 42, "is_active": true},
+    "requests": [
+     {
+      "method": "PATCH",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/notifications/42/active",
+      "query": [],
+      "json": {"is_active": true},
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": "application/json",
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "PATCH /notifications/{notification_id}/active"
+     }
+    ]
+   }
+  ],
+  "test_notification_method": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"data": {"type": "email", "value": "soc@example.com"}},
+    "requests": [
+     {
+      "method": "POST",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/notification_methods/test",
+      "query": [],
+      "json": {"type": "email", "value": "soc@example.com"},
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": "application/json",
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "POST /notification_methods/test"
+     }
+    ]
+   }
+  ],
+  "unlock_all_advanced": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"filters": {"url_domain": "example.com", "is_email": true}, "max_leaks": 500},
+    "requests": [
+     {
+      "method": "POST",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/advanced/unlock",
+      "query": [["max", "500"]],
+      "json": {"url_domain": "example.com", "is_email": true},
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": "application/json",
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "POST /search/advanced/unlock"
+     }
+    ]
+   }
+  ],
+  "unlock_domain_leaks": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"domain": "example.com", "leak_type": "employees", "search": "vpn", "max_leaks": 1000},
+    "requests": [
+     {
+      "method": "POST",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/domain/example.com/employees/unlock",
+      "query": [["search", "vpn"], ["max", "1000"]],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "POST /search/domain/{domain}/{leak_type}/unlock"
+     }
+    ]
+   }
+  ],
+  "unlock_email_leaks": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"email": "john.doe@example.com", "max_leaks": 100, "search": "github", "is_email": true},
+    "requests": [
+     {
+      "method": "POST",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/email/unlock",
+      "query": [["max", "100"]],
+      "json": {"email": "john.doe@example.com", "search": "github", "is_email": true},
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": "application/json",
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "POST /search/email/unlock"
+     }
+    ]
+   }
+  ],
+  "unlock_metadata_leaks": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"meta_id": "m_5d41402abc4b2a76", "max_leaks": 100, "search": "john", "is_email": true},
+    "requests": [
+     {
+      "method": "POST",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/metadata/m_5d41402abc4b2a76/leaks/unlock",
+      "query": [["max", "100"], ["search", "john"], ["is_email", "true"]],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": null
+     }
+    ]
+   }
+  ],
+  "unlock_specific_leaks": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"leak_ids": ["3f1a9c2b7e", "8d4e0a1f6c"]},
+    "requests": [
+     {
+      "method": "POST",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/unlock",
+      "query": [],
+      "json": {"leak_ids": ["3f1a9c2b7e", "8d4e0a1f6c"]},
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": "application/json",
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "POST /unlock"
+     }
+    ]
+   }
+  ],
+  "update_notification": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"notification_id": 42, "data": {"type": "domain", "value": "example.com", "auto_unlock": false}},
+    "requests": [
+     {
+      "method": "PATCH",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/notifications/42",
+      "query": [],
+      "json": {"type": "domain", "value": "example.com", "auto_unlock": false},
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": "application/json",
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "PATCH /notifications/{notification_id}"
+     }
+    ]
+   }
+  ],
+  "update_notification_method": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"method_id": 7, "data": {"name": "SOC webhook (prod)"}},
+    "requests": [
+     {
+      "method": "PATCH",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/notification_methods/7",
+      "query": [],
+      "json": {"name": "SOC webhook (prod)"},
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": "application/json",
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "PATCH /notification_methods/{method_id}"
+     }
+    ]
+   }
+  ],
+  "update_profile": [
+   {
+    "case": "default",
+    "args": [],
+    "kwargs": {"first_name": "John", "organization": "Example Corp", "po_number": "PO-2026-0042"},
+    "requests": [
+     {
+      "method": "PATCH",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/profile",
+      "query": [],
+      "json": {"first_name": "John", "organization": "Example Corp", "po_number": "PO-2026-0042"},
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": "application/json",
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "PATCH /profile"
+     }
+    ]
+   }
+  ],
+  "_request": [
+   {
+    "case": "hidden_get_search_advanced",
+    "args": ["GET", "/search/advanced"],
+    "kwargs": {
+     "params": {
+      "page": 1,
+      "page_size": 100,
+      "url_domain": "example.com",
+      "username_match_type": "starts_with",
+      "auto_unlock": true
+     }
+    },
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/advanced",
+      "query": [
+       ["page", "1"],
+       ["page_size", "100"],
+       ["url_domain", "example.com"],
+       ["username_match_type", "starts_with"],
+       ["auto_unlock", "true"]
+      ],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": null
+     }
+    ]
+   },
+   {
+    "case": "post_json",
+    "args": ["POST", "/search/email"],
+    "kwargs": {"params": {"page": 1}, "json": {"email": "john.doe@example.com", "search": null}},
+    "requests": [
+     {
+      "method": "POST",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/search/email",
+      "query": [["page", "1"]],
+      "json": {"email": "john.doe@example.com", "search": null},
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": "application/json",
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "POST /search/email"
+     }
+    ]
+   },
+   {
+    "case": "extra_header",
+    "args": ["GET", "/profile"],
+    "kwargs": {"headers": {"X-Client-Job": "nightly-sync"}},
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/profile",
+      "query": [],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {"x-client-job": "nightly-sync"},
+      "route": "GET /profile"
+     }
+    ]
+   },
+   {
+    "case": "follow_redirects",
+    "args": ["POST", "/profile/raw/downloads/55/file"],
+    "kwargs": {"params": {"token": "dlt_8c1f0e"}, "follow_redirects": true},
+    "requests": [
+     {
+      "method": "POST",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/profile/raw/downloads/55/file",
+      "query": [["token", "dlt_8c1f0e"]],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "POST /profile/raw/downloads/{download_id}/file"
+     },
+     {
+      "method": "GET",
+      "origin": "https://leakradar-raw.s3.storage.example",
+      "raw_path": "/downloads/55/Passwords.zip",
+      "query": [["X-Amz-Expires", "900"], ["X-Amz-Signature", "5c0ffee"]],
+      "json": null,
+      "authorization": null,
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": null
+     }
+    ]
+   }
+  ],
+  "_client.request": [
+   {
+    "case": "client_get",
+    "args": ["GET", "/profile/usage"],
+    "kwargs": {},
+    "requests": [
+     {
+      "method": "GET",
+      "origin": "https://api.leakradar.io",
+      "raw_path": "/profile/usage",
+      "query": [],
+      "json": null,
+      "authorization": "Bearer lr_test_compat_0123456789abcdef",
+      "content_type": null,
+      "accept": "application/json",
+      "user_agent_prefix": "LeakRadar-Python-Client/",
+      "headers": {},
+      "route": "GET /profile/usage"
+     }
+    ]
+   }
+  ]
+ }
+}

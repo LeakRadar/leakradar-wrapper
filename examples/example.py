@@ -1,22 +1,31 @@
+"""
+A tour of the searches your plan includes, with the asynchronous client.
+
+    export LEAKRADAR_API_KEY="your API key"
+    python examples/example.py
+
+Searches spend no points. The unlocks below are commented out: they spend points.
+"""
+
 import asyncio
-from typing import Dict, Any
+import os
+import sys
+from typing import Any, Mapping
 
-from leakradar import (
-    LeakRadarClient,
-    LeakRadarAPIError,
-    ForbiddenError,
-)
+from leakradar import AsyncLeakRadar, ForbiddenError, LeakRadarAPIError
 
-def plan_flag(plan: Dict[str, Any], key: str) -> bool:
+
+def plan_flag(plan: Mapping[str, Any], key: str) -> bool:
     return bool((plan or {}).get(key) is True)
+
 
 def print_skip(feature: str, plan_name: str) -> None:
     print(f"SKIP {feature}: not allowed on plan '{plan_name}'")
 
-async def main():
-    token = "YOUR_BEARER_TOKEN"
 
-    async with LeakRadarClient(token=token) as client:
+async def main() -> None:
+    # AsyncLeakRadar() reads the key from LEAKRADAR_API_KEY; AsyncLeakRadar(token="...") works too.
+    async with AsyncLeakRadar() as client:
         profile = await client.get_profile()
         plan = profile.get("plan") or {}
         plan_name = plan.get("name") or plan.get("plan_name") or "Unknown"
@@ -55,8 +64,8 @@ async def main():
                     username=["john.doe@example.com"],
                 )
                 print("Advanced export queued:", export_adv)
-                # Optional unlock example (kept commented for safety)
-                # unlocked = await client.unlock_all_advanced({"username": ["john.doe@example.com"]}, max_leaks=10, list_id=123)
+                # Optional unlock example (kept commented: unlocks spend points)
+                # unlocked = await client.unlock_all_advanced({"username": ["john.doe@example.com"]}, max_leaks=10)
                 # print("Unlocked (advanced):", len(unlocked))
             except LeakRadarAPIError as e:
                 print(f"Advanced error: {e}")
@@ -65,13 +74,13 @@ async def main():
 
         if gates["domain"]:
             try:
-                report = await client.get_domain_report("tesla.com", light=False)
+                report = await client.get_domain_report("example.com", light=False)
                 print("Domain report employees:", report.get("employees_compromised"))
 
-                pdf_bytes = await client.get_domain_report_pdf("tesla.com")
-                with open("tesla-report.pdf", "wb") as f:
+                pdf_bytes = await client.get_domain_report_pdf("example.com")
+                with open("example-report.pdf", "wb") as f:
                     f.write(pdf_bytes)
-                print("Saved tesla-report.pdf")
+                print("Saved example-report.pdf")
             except LeakRadarAPIError as e:
                 print(f"Domain error: {e}")
         else:
@@ -91,10 +100,10 @@ async def main():
 
         if gates["raw"]:
             try:
-                raw = await client.raw_search(q='admin@admin.com', page_size=50, dedup=True)
+                raw = await client.raw_search(q="admin@example.com", page_size=50, dedup=True)
                 print("Raw hits:", raw.get("total", 0))
 
-                estimate = await client.raw_count(q='admin@admin.com')
+                estimate = await client.raw_count(q="admin@example.com")
                 print("Raw mass unlock estimate (parts):", estimate.get("total"))
             except LeakRadarAPIError as e:
                 print(f"Raw error: {e}")
@@ -106,12 +115,12 @@ async def main():
                 combos = await client.search_combolist_email("john.doe@example.com", page_size=50)
                 print("Combolist pairs:", combos.get("total", 0))
 
-                report = await client.get_combolist_domain_report("example.com")
-                print("Combolist domain report:", report)
+                combolist_report = await client.get_combolist_domain_report("example.com")
+                print("Combolist domain report:", combolist_report)
 
-                # Optional unlock / export of a whole scope (kept commented for safety: unlocks spend points)
+                # Optional unlock / export of a whole scope (kept commented: unlocks spend points)
                 # task = await client.queue_combolist_unlock_task("email", value="john.doe@example.com", max_leaks=10)
-                # print("Combolist unlock task:", task)
+                # print("Combolist unlock task:", await client.wait_for_task(task))
                 # print(await client.export_combolist("email", value="john.doe@example.com", format="csv"))
             except LeakRadarAPIError as e:
                 print(f"Combolist error: {e}")
@@ -148,5 +157,8 @@ async def main():
         except LeakRadarAPIError as e:
             print(f"Exports error: {e}")
 
+
 if __name__ == "__main__":
+    if not os.environ.get("LEAKRADAR_API_KEY"):
+        sys.exit("Set LEAKRADAR_API_KEY to your API key first.")
     asyncio.run(main())

@@ -1,0 +1,41 @@
+name: API drift
+# Does the SDK still match the live API? Refreshes tests/openapi_ops.json from the live OpenAPI
+# spec, regenerates the types and the sync client, runs the tests, then fails if any file changed.
+# A failure means the SDK lags behind the API: run the same commands locally, cover what
+# tests/test_contract.py lists, commit the regenerated files.
+# This is where leakradar/types.py is compared with the live spec: ci.yml checks only what a push
+# can check offline (the sync client against leakradar/client.py).
+# GitHub emails a scheduled run's failure to whoever last changed the cron line, and disables the
+# schedule of a public repository after 60 days without a commit (Actions tab to re-enable it).
+on:
+  schedule:
+    - cron: "37 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SPEC: https://api.leakradar.io/openapi.json
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12" # same Python as the generators' committed output
+      - run: python -m pip install "httpx<1" # the range pyproject.toml accepts
+      - name: Refresh from the live spec
+        run: |
+          python scripts/update_openapi_snapshot.py --url "$SPEC"
+          python scripts/generate_types.py --spec "$SPEC"
+          python scripts/generate_sync.py
+      - run: python -m unittest discover -s tests -v
+      - name: The SDK is in step with the API
+        if: ${{ !cancelled() }}
+        run: |
+          git diff --stat --exit-code && exit 0
+          git diff -- tests/openapi_ops.json  # the operations and parameters that changed
+          exit 1

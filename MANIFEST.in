@@ -2,3 +2,6 @@ include LICENSE
 include README.md
 include CHANGELOG.md
 recursive-include tests *.py *.json
+recursive-include scripts *.py
+recursive-include examples *.py
+global-exclude *.py[cod]

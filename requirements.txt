@@ -1,2 +1,7 @@
-httpx
-ujson
+# Development environment, the one CI's lint job installs: pip install -r requirements.txt
+# The package's own dependencies are declared in pyproject.toml.
+httpx>=0.27,<1
+anyio
+ujson>=5.4
+ruff==0.17.3
+mypy==2.4.1; python_version >= "3.10"
