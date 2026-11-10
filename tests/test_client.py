@@ -257,6 +257,14 @@ class CombolistTest(ClientTestCase):
         await self.client.get_combolist_domain_report("example.com", no_cache=True)
         self.assertEqual(self.request.headers["x-no-cache"], "1")
 
+    async def test_locate_source_sends_the_id_in_the_path_only(self):
+        credential_id = "cl1_" + "a" * 60
+        await self.client.locate_combolist_source(credential_id)
+        self.assertEqual(self.request.method, "GET")
+        self.assertEqual(self.request.url.path, f"/search/combolist/{credential_id}/source")
+        self.assertEqual(self.query, {})
+        self.assertEqual(self.request.content, b"")
+
     async def test_unlocked_combolists_advanced_filters(self):
         await self.client.get_unlocked_combolists_advanced(filters={"is_email": True}, status="new", page_size=500)
         self.assertEqual(self.body, {"status": "new", "filters": {"is_email": True}})

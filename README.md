@@ -183,6 +183,12 @@ client.search_combolist_domain("example.com", page_size=1000)
 client.get_combolist_domain_report("example.com")
 client.search_combolist_advanced(email_domain="example.com", password_strength="too_weak")
 
+# Every result carries `source`, the raw file the pair was first seen in. With Raw search on
+# your plan, locate the pair in that file (no point spent, locked pairs included)
+found = client.locate_combolist_source("cl1_...")
+if found["location"]:
+    client.raw_get_part(**found["location"])
+
 client.unlock_combolist_leaks(["cl1_..."])
 
 # A whole scope: "email", "username" or "domain" take a value, "advanced" takes filters
@@ -825,6 +831,7 @@ same link (`help(LeakRadar.search_email)`).
 | `search_combolist_domain()` | [`search_combolist_domain`](https://docs.leakradar.io/#tag/search-combolists/search_combolist_domain) |
 | `get_combolist_domain_report()` | [`get_combolist_domain_report`](https://docs.leakradar.io/#tag/search-combolists/get_combolist_domain_report) |
 | `search_combolist_advanced()` | [`search_combolist_advanced`](https://docs.leakradar.io/#tag/search-combolists/search_combolist_advanced) |
+| `locate_combolist_source()` | [`locate_combolist_source`](https://docs.leakradar.io/#tag/search-combolists/locate_combolist_source) |
 | `unlock_combolist_leaks()` | [`unlock_combolist`](https://docs.leakradar.io/#tag/search-combolists/unlock_combolist) |
 | `queue_combolist_unlock_task()` | [`queue_combolist_unlock`](https://docs.leakradar.io/#tag/search-combolists/queue_combolist_unlock) |
 | `export_combolist()` | [`export_combolist`](https://docs.leakradar.io/#tag/search-combolists/export_combolist) |

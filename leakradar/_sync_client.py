@@ -1575,6 +1575,22 @@ class LeakRadar:
         params = self._clean({"page": page, "page_size": page_size, "auto_unlock": auto_unlock})
         return self._request("POST", "/search/combolist/advanced", params=params, json=filters)
 
+    def locate_combolist_source(self, credential_id: str) -> _types.CombolistSourceResponse:
+        """
+        Raw file a combolist pair was first seen in (`source`) and the part of that file holding
+        it (`location`), each None when it cannot be resolved.
+
+        - credential_id: the `id` of a combolist result (`cl1_` IDs only). Locked pairs work too.
+        - Needs both the Combolists dataset and Raw search on your plan (ForbiddenError otherwise).
+          Costs no point, and the answer never holds the identifier or the password.
+        - Pass the keys of `location` to raw_get_part() to read the lines around the pair (the
+          usual Raw rule: 1 point per part not unlocked yet), or `source["file_id"]` as the
+          `container_id` of raw_search() to search the whole file.
+
+        API: locate_combolist_source, https://docs.leakradar.io/#tag/search-combolists/locate_combolist_source
+        """
+        return self._request("GET", f"/search/combolist/{self._seg(credential_id)}/source")
+
     def unlock_combolist_leaks(
         self,
         leak_ids: List[str],

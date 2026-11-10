@@ -74,6 +74,7 @@ OPERATIONS = {
     "GET /search/combolist/domain/{domain}": ("search_combolist_domain", {"domain": "example.com"}),
     "GET /search/combolist/domain/{domain}/report": ("get_combolist_domain_report", {"domain": "example.com"}),
     "POST /search/combolist/advanced": ("search_combolist_advanced", {"username": "john"}),
+    "GET /search/combolist/{credential_id}/source": ("locate_combolist_source", {"credential_id": CL_ID}),
     "POST /search/combolist/unlock": ("unlock_combolist_leaks", {"leak_ids": [CL_ID]}),
     "POST /search/combolist/unlock/task": (
         "queue_combolist_unlock_task",

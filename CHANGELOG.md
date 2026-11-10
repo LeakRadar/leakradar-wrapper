@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- `locate_combolist_source()`: `GET /search/combolist/{credential_id}/source`, the raw file a
+  combolist pair was first seen in and the part of that file holding it, to pass to
+  `raw_get_part()`. It needs the Combolists dataset and Raw search, works on locked pairs and
+  costs no point.
+- `leakradar.types` follows the API: `source` on the combolist results (`CombolistSourceFile`),
+  `CombolistSourceLocation`, `CombolistSourceResponse`, and `size_bytes` on the items of
+  `list_raw_files()`.
+
 ## 0.3.0 (2026-11-05)
 
 A synchronous client, `LeakRadar`, next to the asynchronous ones, helpers for background jobs and
