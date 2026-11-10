@@ -506,6 +506,16 @@
    "response": "CombolistDomainReportResponse",
    "tag": "Search Combolists"
   },
+  "GET /search/combolist/{credential_id}/source": {
+   "body": [],
+   "operation_id": "locate_combolist_source",
+   "path": [
+    "credential_id"
+   ],
+   "query": [],
+   "response": "CombolistSourceResponse",
+   "tag": "Search Combolists"
+  },
   "GET /search/dark-web/post/{post_id}": {
    "body": [],
    "operation_id": "get_dark_web_post",

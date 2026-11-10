@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.3.0 (unreleased)
+## 0.3.0 (2026-11-05)
 
 A synchronous client, `LeakRadar`, next to the asynchronous ones, helpers for background jobs and
 pagination, typed responses, and retries of rate limit refusals and transient failures. Code

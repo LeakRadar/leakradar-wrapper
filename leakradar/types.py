@@ -34,6 +34,9 @@ __all__ = [
     "CombolistPasswordStrengthReport",
     "CombolistScopedRequest",
     "CombolistSearchResponse",
+    "CombolistSourceFile",
+    "CombolistSourceLocation",
+    "CombolistSourceResponse",
     "CombolistStatusUpdate",
     "CombolistUnlockResult",
     "CombolistUnlockedAdvancedRequest",
@@ -441,7 +444,15 @@ class CombolistCredentialDetails(TypedDict, total=False):
     email_domain: Optional[str]
     """Normalized domain, present only for email credentials."""
     added_at: str
-    """Date of the earliest accepted RawFile occurrence."""
+    """
+    When the pair entered the Combolists dataset. It can be later than `source.ingested_at`, the
+    date its source file was indexed.
+    """
+    source: Optional["CombolistSourceFile"]
+    """
+    Raw file the pair was first seen in. Hidden, like `id`, when the plan does not include the
+    Combolists dataset, and null when the file cannot be resolved.
+    """
     unlocked: bool
     """Whether the row is unlocked."""
     status: Optional[Literal["new", "in_progress", "fixed", "accepted_risk"]]
@@ -517,6 +528,48 @@ class CombolistSearchResponse(TypedDict, total=False):
     """Points consumed by Combo auto-unlock on this request."""
 
 
+class CombolistSourceFile(TypedDict, total=False):
+    """The raw file a combolist pair was first seen in."""
+
+    file_id: int
+    """
+    Identifier of the raw file. Same value as `id` in `GET /raw/files` and as `container_id` in the
+    Raw search and download routes.
+    """
+    file_name: str
+    """Name of the file as LeakRadar received it."""
+    lines: Optional[int]
+    """Number of lines indexed from the file."""
+    size_bytes: Optional[int]
+    """Size of the file as it was received: the compressed size when it is an archive."""
+    ingested_at: Optional[str]
+    """
+    When LeakRadar indexed the file, i.e. when it first saw the pair. Later files can hold the same
+    pair.
+    """
+
+
+class CombolistSourceLocation(TypedDict, total=False):
+    """Where a pair sits in its source file, in the terms of the Raw routes."""
+
+    container_id: int
+    """Raw file identifier, equal to `source.file_id`."""
+    entry_path: str
+    """Path of the entry inside the file, as `GET /search/raw/part` takes it."""
+    seq: int
+    """Number of the part holding the pair (0-based), the `seq` of `GET /search/raw/part`."""
+
+
+class CombolistSourceResponse(TypedDict, total=False):
+    source: Optional["CombolistSourceFile"]
+    """Raw file the pair was first seen in, null when it cannot be resolved."""
+    location: Optional["CombolistSourceLocation"]
+    """
+    Part of that file holding the pair, null when it cannot be located. Reading the part follows the
+    usual Raw rules: 1 point per part not unlocked yet.
+    """
+
+
 class CombolistStatusUpdate(TypedDict, total=False):
     status: Literal["new", "in_progress", "fixed", "accepted_risk"]
 
@@ -535,7 +588,12 @@ class CombolistUnlockResult(TypedDict, total=False):
     email_domain: Optional[str]
     """Domain of `username` when it is an email address."""
     added_at: str
-    """When the pair was added to the dataset."""
+    """
+    When the pair entered the Combolists dataset. It can be later than `source.ingested_at`, the
+    date its source file was indexed.
+    """
+    source: Optional["CombolistSourceFile"]
+    """Raw file the pair was first seen in, null when it cannot be resolved."""
     status: Literal["new", "in_progress", "fixed", "accepted_risk"]
     """Your remediation status."""
     dataset: Literal["combolist"]
@@ -578,7 +636,12 @@ class CombolistUnlockedDetails(TypedDict, total=False):
     email_domain: Optional[str]
     """Domain of `username` when it is an email address."""
     added_at: str
-    """When the pair was added to the dataset."""
+    """
+    When the pair entered the Combolists dataset. It can be later than `source.ingested_at`, the
+    date its source file was indexed.
+    """
+    source: Optional["CombolistSourceFile"]
+    """Raw file the pair was first seen in, null when it cannot be resolved."""
     unlocked_at: str
     """When you unlocked it."""
     auto_unlocked: bool
@@ -2224,6 +2287,8 @@ class RawFileAddedSummary(TypedDict, total=False):
     """Original file name attached to the raw file."""
     lines: int
     """Number of lines indexed for the raw file."""
+    size_bytes: Optional[int]
+    """Size in bytes of the file as it was received: the compressed size when it is an archive."""
     ingested_at: str
     """ISO timestamp indicating when the raw file was ingested."""
     category: Optional[str]
