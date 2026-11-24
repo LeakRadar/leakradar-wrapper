@@ -34,6 +34,7 @@ import copy
 import importlib
 import inspect
 import json
+import os
 import pathlib
 import re
 import subprocess
@@ -64,6 +65,7 @@ VERSIONS = (
     ("0.1.5", "24d9af8b266828393a85146611f5bde6f3f17a01", "2025-12-12 09:25"),
     ("0.1.6", "c2c610feb6dd9a429717e47ebb60bcea7306fc32", "2026-01-07 11:40"),
     ("0.2.0", "c6f6882f15c0fb26358a42985434ce60e89f3b63", "2026-10-15 16:04"),
+    ("0.3.0", "9f3d00ae1fb65e7957ec637ed8b01090febd3a1d", "2026-11-05 03:52"),
 )
 # Published releases the history cannot rebuild: (version, upload time UTC, why).
 UNMAPPED = (("0.1.0", "2025-06-04 11:27", "uploaded before the first commit, which already says 0.1.1"),)
@@ -549,9 +551,26 @@ EXTRA_CASES = {
             },
         ),
     ),
-    # paginate() and request() are new in 0.3.0: recorded once that release is frozen.
-    # The listing's own arguments passed by position (ARGUMENTS passes them by name).
-    "paginate": (("positional_arguments", [{"$client": "get_domain_all"}, DOMAIN], {"page_size": 100, "max_items": 50}),),
+    # New in 0.3.0. The listing's own arguments passed by position (ARGUMENTS passes them by
+    # name), then a listing read under another key than "items".
+    "paginate": (
+        ("positional_arguments", [{"$client": "get_domain_all"}, DOMAIN], {"page_size": 100, "max_items": 50}),
+        ("items_key", [{"$client": "get_domain_all"}, DOMAIN], {"page_size": 100, "items_key": "results"}),
+    ),
+    # New in 0.3.0: the archive written to a file instead of returned.
+    "download_export": (
+        (
+            "to_a_file",
+            [],
+            {"export": {"id": 77, "status": "COMPLETED", "filename": "https://exports.storage.example/77/leakradar-export.zip"}, "path": {"$tmp_path": "leakradar-export.zip"}},
+        ),
+    ),
+    # New in 0.3.0: a function called with each state read while waiting.
+    "wait_for_export": (("on_progress", [], {"export_id": 77, "interval": 1.0, "timeout": 60.0, "on_progress": {"$callback": "state"}}),),
+    "wait_for_task": (("on_progress", [], {"task_id": "4321", "interval": 0.5, "timeout": 30.0, "on_progress": {"$callback": "state"}}),),
+    "wait_for_unlocked_list_task": (
+        ("on_progress", [], {"task_id": "8807", "interval": 0.5, "timeout": 30.0, "on_progress": {"$callback": "state"}}),
+    ),
     "queue_combolist_unlock_task": (
         (
             "scope_advanced",
@@ -867,11 +886,29 @@ def accepts(signature, args, kwargs):
     return True
 
 
+_SCRATCH = []
+
+
+def _scratch_path(name):
+    """A file path in a directory of its own, removed when the interpreter exits."""
+    if not _SCRATCH:
+        _SCRATCH.append(tempfile.TemporaryDirectory(prefix="leakradar-scratch-"))
+    return os.path.join(_SCRATCH[0].name, name)
+
+
 def resolve(value, client):
-    """A recorded argument, {"$client": name} turned into the client's bound method."""
+    """
+    A recorded argument made real: {"$client": name} is the client's bound method,
+    {"$tmp_path": name} a file path in a scratch directory (download_export(path=...)) and
+    {"$callback": label} a function that takes one argument (on_progress=...).
+    """
     if isinstance(value, dict):
         if list(value) == ["$client"]:
             return getattr(client, value["$client"])
+        if list(value) == ["$tmp_path"]:
+            return _scratch_path(value["$tmp_path"])
+        if list(value) == ["$callback"]:
+            return lambda state: None
         return {k: resolve(v, client) for k, v in value.items()}
     if isinstance(value, list):
         return [resolve(v, client) for v in value]

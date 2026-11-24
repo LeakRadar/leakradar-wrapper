@@ -23,6 +23,7 @@ import asyncio
 import json
 import pathlib
 import unittest
+from unittest import mock
 
 import httpx
 
@@ -38,6 +39,11 @@ CONSTRUCTOR_CHECKS = {
     "user_agent": "sent as the User-Agent",
     "timeout": "the timeout of the request",
     "transport": "carries the API requests",
+    "max_retries": "number of retries of a 502 on a GET, none at 0",
+    "max_retry_wait": "a 503 announcing a longer wait is raised at once, a shorter one retried",
+    "base_url": "address the requests go to",
+    "verify": "given to httpx when the client builds its own transport",
+    "proxy": "given to httpx when the client builds its own transport",
 }
 
 
@@ -174,6 +180,117 @@ class ConstructorArgumentsTest(unittest.TestCase):
                 self.assertEqual(request.headers.get("authorization"), "Bearer lr_ctor_token")
                 self.assertEqual(request.headers.get("user-agent"), "acme-soc/2.1")
                 self.assertEqual(request.extensions.get("timeout"), httpx.Timeout(12.5).as_dict())
+
+    def _attempts(self, answer, **settings):
+        """(requests sent, waits asked) by one get_profile() against a server that always answers `answer`."""
+        sent, waits, clock = [], [], [0.0]
+
+        def handle(request):
+            sent.append(request)
+            return answer()
+
+        async def no_sleep(seconds):
+            # A clock that only moves when the client waits: no real time is spent.
+            waits.append(seconds)
+            clock[0] += seconds
+
+        async def run():
+            client = LeakRadarClient("lr_ctor_token", transport=httpx.MockTransport(handle), **settings)
+            client._sleep = no_sleep
+            client._monotonic = lambda: clock[0]
+            try:
+                await client.get_profile()
+            except Exception:
+                pass
+            finally:
+                await client.aclose()
+
+        asyncio.run(run())
+        return len(sent), waits
+
+    def test_retry_arguments_still_apply(self):
+        # Since 0.3.0. max_retries: a 502 on a GET is retried that many times, never at 0.
+        def gateway():
+            return httpx.Response(502, json={})
+
+        self.assertEqual(self._attempts(gateway, max_retries=2)[0], 3)
+        self.assertEqual(self._attempts(gateway, max_retries=0)[0], 1)
+        # Fifth and sixth positional arguments, as 0.3.0 published them.
+        sent, waits, clock = [], [], [0.0]
+
+        async def positional():
+            def handle(request):
+                sent.append(request)
+                return gateway()
+
+            async def no_sleep(seconds):
+                waits.append(seconds)
+                clock[0] += seconds
+
+            client = LeakRadarClient("lr_ctor_token", "acme-soc/2.1", 12.5, httpx.MockTransport(handle), 1, 0.25)
+            client._sleep = no_sleep
+            client._monotonic = lambda: clock[0]
+            try:
+                await client.get_profile()
+            except Exception:
+                pass
+            finally:
+                await client.aclose()
+
+        asyncio.run(positional())
+        self.assertEqual(len(sent), 2)
+        self.assertEqual(len(waits), 1)
+        # The backoff never waits longer than max_retry_wait (plus its jitter).
+        self.assertLess(waits[0], 0.5)
+
+        # max_retry_wait: a refusal announcing a longer wait is raised at once.
+        def unavailable():
+            return httpx.Response(503, headers={"Retry-After": "30"}, json={})
+
+        attempts, waits = self._attempts(unavailable, max_retries=2, max_retry_wait=5)
+        self.assertEqual((attempts, waits), (1, []))
+        attempts, waits = self._attempts(unavailable, max_retries=2, max_retry_wait=60)
+        self.assertEqual(attempts, 3)
+        self.assertLess(len(waits), 20)
+        self.assertGreaterEqual(sum(waits), 60)
+
+    def test_network_arguments_still_apply(self):
+        # Since 0.3.0, keyword-only. base_url: where the requests go.
+        sent = []
+
+        def handle(request):
+            sent.append(request)
+            return httpx.Response(200, json={})
+
+        async def through_a_gateway():
+            client = LeakRadarClient(
+                "lr_ctor_token", transport=httpx.MockTransport(handle), base_url="https://gateway.example.test/lr/"
+            )
+            try:
+                await client.get_profile()
+            finally:
+                await client.aclose()
+
+        asyncio.run(through_a_gateway())
+        self.assertEqual(str(sent[0].url), "https://gateway.example.test/lr/profile")
+
+        # verify and proxy: handed to httpx when the client builds its own transport.
+        created = []
+        real_init = httpx.AsyncClient.__init__
+
+        def init(client, *args, **kwargs):
+            created.append(dict(kwargs))
+            kwargs.pop("proxy", None)
+            kwargs["transport"] = httpx.MockTransport(handle)
+            real_init(client, *args, **kwargs)
+
+        async def configured():
+            with mock.patch.object(httpx.AsyncClient, "__init__", init):
+                client = LeakRadarClient("lr_ctor_token", verify=False, proxy="http://proxy.example.test:3128")
+            await client.aclose()
+
+        asyncio.run(configured())
+        self.assertEqual((created[0]["verify"], created[0]["proxy"]), (False, "http://proxy.example.test:3128"))
 
 
 if __name__ == "__main__":

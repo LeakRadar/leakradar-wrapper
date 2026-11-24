@@ -1070,6 +1070,6 @@ Continuous integration (GitHub Actions):
   Publishing (no API token).
 
 ```bash
-git tag v0.3.0
-git push origin v0.3.0
+git tag v0.4.0
+git push origin v0.4.0
 ```

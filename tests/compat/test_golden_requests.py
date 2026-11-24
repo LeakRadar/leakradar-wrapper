@@ -21,8 +21,10 @@ import asyncio
 import contextlib
 import copy
 import json
+import os
 import pathlib
 import re
+import tempfile
 import unittest
 import warnings
 from unittest import mock
@@ -337,11 +339,29 @@ def every_client_on(transport):
         yield
 
 
+_SCRATCH = []
+
+
+def _scratch_path(name):
+    """A file path in a directory of its own, removed when the interpreter exits."""
+    if not _SCRATCH:
+        _SCRATCH.append(tempfile.TemporaryDirectory(prefix="leakradar-scratch-"))
+    return os.path.join(_SCRATCH[0].name, name)
+
+
 def resolve(value, client):
-    """A recorded argument, {"$client": name} turned into the client's bound method."""
+    """
+    A recorded argument made real: {"$client": name} is the client's bound method,
+    {"$tmp_path": name} a file path in a scratch directory (download_export(path=...)) and
+    {"$callback": label} a function that takes one argument (on_progress=...).
+    """
     if isinstance(value, dict):
         if list(value) == ["$client"]:
             return getattr(client, value["$client"])
+        if list(value) == ["$tmp_path"]:
+            return _scratch_path(value["$tmp_path"])
+        if list(value) == ["$callback"]:
+            return lambda state: None
         return {k: resolve(v, client) for k, v in value.items()}
     if isinstance(value, list):
         return [resolve(v, client) for v in value]

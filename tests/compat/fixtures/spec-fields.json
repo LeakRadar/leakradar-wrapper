@@ -377,6 +377,7 @@
    "required": ["scope"]
   },
   "POST /search/combolist/username": {"array": [], "required": ["username"]},
+  "GET /search/combolist/{credential_id}/source": {"array": [], "required": []},
   "POST /search/dark-web": {"array": [], "required": []},
   "GET /search/dark-web/post/{post_id}": {"array": [], "required": []},
   "GET /search/dark-web/sources": {"array": [], "required": []},
