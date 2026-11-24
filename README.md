@@ -158,8 +158,9 @@ pdf = client.get_domain_report_pdf("example.com")  # bytes
 
 client.search_advanced(
     username=["john", "jane"],
-    username_match_type="starts_with",  # contains (default), starts_with or ends_with
+    username_match_type="starts_with",  # contains (default), starts_with, ends_with or exact
     url_domain="example.com",
+    url_domain_match_type="exact",  # the whole value: example.com, not notexample.com
     password_strength="weak",
     added_from=datetime(2026, 1, 1, tzinfo=timezone.utc),  # dates are sent as ISO 8601
 )

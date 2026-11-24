@@ -132,6 +132,36 @@ class TransportAndHeadersTest(ClientTestCase):
         await self.client.search_advanced(username="john", added_from=moment)
         self.assertEqual(self.body["added_from"], "2026-09-01T00:00:00+00:00")
 
+    async def test_domain_indexing_window_on_lists_export_and_unlocks(self):
+        start = datetime(2026, 11, 1, tzinfo=timezone.utc)
+        window = {"added_from": "2026-11-01T00:00:00+00:00", "added_to": "2026-11-24"}
+
+        def last_query():
+            return dict(self.requests[-1].url.params)
+
+        for method in ("get_domain_all", "get_domain_employees", "get_domain_customers", "get_domain_third_parties"):
+            with self.subTest(method=method):
+                await getattr(self.client, method)("example.com", added_from=start, added_to="2026-11-24")
+                self.assertEqual({k: last_query()[k] for k in window}, window)
+
+        await self.client.export_domain_leaks("example.com", "employees", added_from=start, added_to="2026-11-24")
+        body = json.loads(self.requests[-1].content)
+        self.assertEqual({k: body[k] for k in window}, window)
+
+        for method in ("unlock_domain_leaks", "queue_domain_unlock_task"):
+            with self.subTest(method=method):
+                await getattr(self.client, method)("example.com", "customers", added_from=start, added_to="2026-11-24")
+                self.assertEqual({k: last_query()[k] for k in window}, window)
+
+    async def test_domain_requests_without_a_window_are_unchanged(self):
+        await self.client.get_domain_all("example.com")
+        self.assertNotIn("added_from", self.query)
+        self.assertNotIn("added_to", self.query)
+
+    async def test_domain_export_without_a_window_sends_no_date(self):
+        await self.client.export_domain_leaks("example.com", "employees")
+        self.assertEqual(self.body, {})
+
     async def test_dates_in_query_and_nested_filters(self):
         moment = datetime(2026, 9, 1, tzinfo=timezone.utc)
         await self.client.export_notification_runs(filters={"sent_after": moment})
@@ -153,6 +183,51 @@ class AdvancedSearchTest(ClientTestCase):
             {"username": ["john"], "url_port": [443], "username_match_type": "starts_with", "force_and": True},
         )
         self.assertEqual(self.query, {"page": "1", "page_size": "50", "auto_unlock": "true"})
+
+    async def test_exact_is_sent_like_the_other_modes(self):
+        await self.client.search_advanced(
+            url_domain="example.com",
+            url_domain_match_type="exact",
+            username_not=["admin"],
+            username_not_match_type="exact",
+        )
+        self.assertEqual(
+            self.body,
+            {
+                "url_domain": ["example.com"],
+                "url_domain_match_type": "exact",
+                "username_not": ["admin"],
+                "username_not_match_type": "exact",
+            },
+        )
+
+    async def test_exact_travels_with_unlocks_exports_and_monitors(self):
+        exact = {"url_domain": ["example.com"], "url_domain_match_type": "exact"}
+
+        await self.client.unlock_all_advanced(dict(exact), max_leaks=5)
+        self.assertEqual(self.request.url.path, "/search/advanced/unlock")
+        self.assertEqual(self.body, exact)
+
+        self.requests.clear()
+        await self.client.queue_advanced_unlock_task(dict(exact), max_leaks=5)
+        self.assertEqual(self.request.url.path, "/search/advanced/unlock/task")
+        self.assertEqual(self.body, exact)
+
+        self.requests.clear()
+        await self.client.export_advanced(format="csv", url_domain="example.com", url_domain_match_type="exact")
+        self.assertEqual(self.request.url.path, "/search/advanced/export")
+        self.assertEqual(self.body, exact)
+
+        self.requests.clear()
+        await self.client.export_advanced_urls(url_domain="example.com", url_domain_match_type="exact")
+        self.assertEqual(self.request.url.path, "/search/advanced/export_urls")
+        self.assertEqual(self.body, exact)
+
+        self.requests.clear()
+        monitor = {"type": "advanced", "notification_method_id": 3, "filters": dict(exact)}
+        await self.client.create_notification(monitor)
+        self.assertEqual(self.request.url.path, "/notifications")
+        self.assertEqual(self.body, monitor)
 
     async def test_unset_filters_are_not_sent(self):
         await self.client.search_advanced(email_domain=("a.com", "b.com"))
@@ -228,6 +303,10 @@ class CombolistTest(ClientTestCase):
     async def test_advanced_search_only_sends_combolist_fields(self):
         await self.client.search_combolist_advanced(password="hunter2", email_domain_match_type="ends_with")
         self.assertEqual(self.body, {"password": ["hunter2"], "email_domain_match_type": "ends_with"})
+
+    async def test_advanced_search_sends_exact(self):
+        await self.client.search_combolist_advanced(email_domain="example.com", email_domain_match_type="exact")
+        self.assertEqual(self.body, {"email_domain": ["example.com"], "email_domain_match_type": "exact"})
 
     async def test_scope_body_for_value_scopes(self):
         await self.client.queue_combolist_unlock_task("domain", value="example.com", search="admin", max_leaks=10)

@@ -566,7 +566,9 @@
     "is_email",
     "page",
     "page_size",
-    "auto_unlock"
+    "auto_unlock",
+    "added_from",
+    "added_to"
    ],
    "response": "PaginatedAllLeaksResponse",
    "tag": "Search Domain"
@@ -582,7 +584,9 @@
     "page_size",
     "search",
     "is_email",
-    "auto_unlock"
+    "auto_unlock",
+    "added_from",
+    "added_to"
    ],
    "response": "PaginatedLeaksResponse",
    "tag": "Search Domain"
@@ -598,7 +602,9 @@
     "is_email",
     "page",
     "page_size",
-    "auto_unlock"
+    "auto_unlock",
+    "added_from",
+    "added_to"
    ],
    "response": "PaginatedLeaksResponse",
    "tag": "Search Domain"
@@ -638,7 +644,9 @@
     "page_size",
     "search",
     "is_email",
-    "auto_unlock"
+    "auto_unlock",
+    "added_from",
+    "added_to"
    ],
    "response": "PaginatedLeaksResponse",
    "tag": "Search Domain"
@@ -1673,6 +1681,8 @@
   },
   "POST /search/domain/{domain}/{leak_type}/export": {
    "body": [
+    "added_from",
+    "added_to",
     "format",
     "is_email",
     "search"
@@ -1685,7 +1695,9 @@
    "query": [
     "search",
     "is_email",
-    "format"
+    "format",
+    "added_from",
+    "added_to"
    ],
    "response": "ExportResponse",
    "tag": "Search Domain"
@@ -1701,7 +1713,9 @@
     "search",
     "is_email",
     "max",
-    "list_id"
+    "list_id",
+    "added_from",
+    "added_to"
    ],
    "response": "List[LeakDetails]",
    "tag": "Search Domain"
@@ -1717,7 +1731,9 @@
     "search",
     "is_email",
     "max",
-    "list_id"
+    "list_id",
+    "added_from",
+    "added_to"
    ],
    "response": "UnlockTaskQueuedResponse",
    "tag": "Search Domain"

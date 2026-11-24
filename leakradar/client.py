@@ -1386,7 +1386,8 @@ class LeakRadarClient:
         Search stealer logs with advanced filters (LeakSearchFilters, sent as the JSON body).
 
         - Values inside one field are OR'ed; force_and=True requires all of them.
-        - `*_match_type`: "contains" (default when omitted), "starts_with" or "ends_with".
+        - `*_match_type`: "contains" (default when omitted), "starts_with", "ends_with" or "exact"
+          (the whole value, case-insensitive; with force_and=True an exact field takes one value).
         - password_strength: "too_weak", "weak", "medium" or "strong".
         - Scalars are wrapped into lists where the API expects arrays.
         - auto_unlock=True unlocks the locked items of the returned page with your points.
@@ -1509,15 +1510,29 @@ class LeakRadarClient:
         search: Optional[str] = None,
         is_email: Optional[bool] = None,
         auto_unlock: Optional[bool] = None,
+        added_from: Optional[DateLike] = None,
+        added_to: Optional[DateLike] = None,
     ) -> _types.PaginatedAllLeaksResponse:
         """
         List every leak of a domain (employees, customers and third parties together).
         Each item carries a `category` field.
 
+        added_from / added_to: only leaks indexed by LeakRadar in that window (ISO 8601 string,
+        date or datetime, both bounds inclusive). The counts then cover that window only. To fetch
+        new records on a schedule, start a little before your previous run and de-duplicate on `id`.
+
         API: list_domain_leaks, https://docs.leakradar.io/#tag/search-domain/list_domain_leaks
         """
         params = self._clean(
-            {"page": page, "page_size": page_size, "search": search, "is_email": is_email, "auto_unlock": auto_unlock}
+            {
+                "page": page,
+                "page_size": page_size,
+                "search": search,
+                "is_email": is_email,
+                "auto_unlock": auto_unlock,
+                "added_from": added_from,
+                "added_to": added_to,
+            }
         )
         return await self._request("GET", f"/search/domain/{self._seg(_domain(domain))}/all", params=params)
 
@@ -1529,14 +1544,28 @@ class LeakRadarClient:
         search: Optional[str] = None,
         is_email: Optional[bool] = None,
         auto_unlock: Optional[bool] = None,
+        added_from: Optional[DateLike] = None,
+        added_to: Optional[DateLike] = None,
     ) -> _types.PaginatedLeaksResponse:
         """
         List the leaks linked to customers of a domain.
 
+        added_from / added_to: only leaks indexed by LeakRadar in that window (ISO 8601 string,
+        date or datetime, both bounds inclusive). The counts then cover that window only. To fetch
+        new records on a schedule, start a little before your previous run and de-duplicate on `id`.
+
         API: list_domain_customers, https://docs.leakradar.io/#tag/search-domain/list_domain_customers
         """
         params = self._clean(
-            {"page": page, "page_size": page_size, "search": search, "is_email": is_email, "auto_unlock": auto_unlock}
+            {
+                "page": page,
+                "page_size": page_size,
+                "search": search,
+                "is_email": is_email,
+                "auto_unlock": auto_unlock,
+                "added_from": added_from,
+                "added_to": added_to,
+            }
         )
         return await self._request("GET", f"/search/domain/{self._seg(_domain(domain))}/customers", params=params)
 
@@ -1548,14 +1577,28 @@ class LeakRadarClient:
         search: Optional[str] = None,
         is_email: Optional[bool] = None,
         auto_unlock: Optional[bool] = None,
+        added_from: Optional[DateLike] = None,
+        added_to: Optional[DateLike] = None,
     ) -> _types.PaginatedLeaksResponse:
         """
         List the leaks linked to employees of a domain.
 
+        added_from / added_to: only leaks indexed by LeakRadar in that window (ISO 8601 string,
+        date or datetime, both bounds inclusive). The counts then cover that window only. To fetch
+        new records on a schedule, start a little before your previous run and de-duplicate on `id`.
+
         API: list_domain_employees, https://docs.leakradar.io/#tag/search-domain/list_domain_employees
         """
         params = self._clean(
-            {"page": page, "page_size": page_size, "search": search, "is_email": is_email, "auto_unlock": auto_unlock}
+            {
+                "page": page,
+                "page_size": page_size,
+                "search": search,
+                "is_email": is_email,
+                "auto_unlock": auto_unlock,
+                "added_from": added_from,
+                "added_to": added_to,
+            }
         )
         return await self._request("GET", f"/search/domain/{self._seg(_domain(domain))}/employees", params=params)
 
@@ -1567,14 +1610,28 @@ class LeakRadarClient:
         search: Optional[str] = None,
         is_email: Optional[bool] = None,
         auto_unlock: Optional[bool] = None,
+        added_from: Optional[DateLike] = None,
+        added_to: Optional[DateLike] = None,
     ) -> _types.PaginatedLeaksResponse:
         """
         List the leaks linked to third parties of a domain.
 
+        added_from / added_to: only leaks indexed by LeakRadar in that window (ISO 8601 string,
+        date or datetime, both bounds inclusive). The counts then cover that window only. To fetch
+        new records on a schedule, start a little before your previous run and de-duplicate on `id`.
+
         API: list_domain_third_parties, https://docs.leakradar.io/#tag/search-domain/list_domain_third_parties
         """
         params = self._clean(
-            {"page": page, "page_size": page_size, "search": search, "is_email": is_email, "auto_unlock": auto_unlock}
+            {
+                "page": page,
+                "page_size": page_size,
+                "search": search,
+                "is_email": is_email,
+                "auto_unlock": auto_unlock,
+                "added_from": added_from,
+                "added_to": added_to,
+            }
         )
         return await self._request("GET", f"/search/domain/{self._seg(_domain(domain))}/third_parties", params=params)
 
@@ -1655,16 +1712,21 @@ class LeakRadarClient:
         search: Optional[str] = None,
         is_email: Optional[bool] = None,
         format: Optional[str] = None,
+        added_from: Optional[DateLike] = None,
+        added_to: Optional[DateLike] = None,
     ) -> _types.ExportResponse:
         """
         Queue an export for leaks of a domain and leak type.
+
+        added_from / added_to: only export leaks indexed by LeakRadar in that window (ISO 8601
+        string, date or datetime, both bounds inclusive).
 
         Note: as of OpenAPI v1.0.0, this endpoint is POST.
 
         API: export_domain, https://docs.leakradar.io/#tag/search-domain/export_domain
         """
         params = self._clean({"format": format})
-        body = self._clean({"search": search, "is_email": is_email})
+        body = self._clean({"search": search, "is_email": is_email, "added_from": added_from, "added_to": added_to})
         return await self._request(
             "POST",
             f"/search/domain/{self._seg(_domain(domain))}/{self._seg(leak_type)}/export",
@@ -1680,9 +1742,14 @@ class LeakRadarClient:
         is_email: Optional[bool] = None,
         max_leaks: Optional[int] = None,
         list_id: Optional[int] = None,
+        added_from: Optional[DateLike] = None,
+        added_to: Optional[DateLike] = None,
     ) -> List[_types.LeakDetails]:
         """
         Unlock leaks for a domain + category.
+
+        search, is_email, added_from and added_to narrow the unlock to the same records as the
+        matching list request (added_from / added_to: indexing window, both bounds inclusive).
 
         Synchronous, at most 10,000 records: the cap is max_leaks or your point balance,
         whichever is smaller (the whole balance when max_leaks is omitted or 0), and a cap
@@ -1700,6 +1767,10 @@ class LeakRadarClient:
             params["max"] = max_leaks
         if list_id is not None:
             params["list_id"] = list_id
+        if added_from is not None:
+            params["added_from"] = self._jsonable(added_from)
+        if added_to is not None:
+            params["added_to"] = self._jsonable(added_to)
         return await self._request(
             "POST", f"/search/domain/{self._seg(_domain(domain))}/{self._seg(leak_type)}/unlock", params=params
         )
@@ -1712,13 +1783,27 @@ class LeakRadarClient:
         is_email: Optional[bool] = None,
         max_leaks: Optional[int] = None,
         list_id: Optional[int] = None,
+        added_from: Optional[DateLike] = None,
+        added_to: Optional[DateLike] = None,
     ) -> _types.UnlockTaskQueuedResponse:
         """
         Queue an async mass unlock task for a domain.
 
+        search, is_email, added_from and added_to narrow the unlock to the same records as the
+        matching list request (added_from / added_to: indexing window, both bounds inclusive).
+
         API: queue_domain_unlock, https://docs.leakradar.io/#tag/search-domain/queue_domain_unlock
         """
-        params = self._clean({"search": search, "is_email": is_email, "max": max_leaks, "list_id": list_id})
+        params = self._clean(
+            {
+                "search": search,
+                "is_email": is_email,
+                "max": max_leaks,
+                "list_id": list_id,
+                "added_from": added_from,
+                "added_to": added_to,
+            }
+        )
         return await self._request(
             "POST", f"/search/domain/{self._seg(_domain(domain))}/{self._seg(leak_type)}/unlock/task", params=params
         )
@@ -2056,7 +2141,8 @@ class LeakRadarClient:
         Search combolists with advanced filters.
 
         Only the fields of the combolist mapping exist (no url_*, email_host or email_tld).
-        `*_match_type`: "contains" (default), "starts_with" or "ends_with". page_size: 1-1000.
+        `*_match_type`: "contains" (default), "starts_with", "ends_with" or "exact" (the whole
+        value, case-insensitive). page_size: 1-1000.
         The same keys, as a dict, are the `filters` of the advanced scope in
         queue_combolist_unlock_task(), export_combolist() and get_unlocked_combolists_advanced().
 
@@ -3040,7 +3126,8 @@ class LeakRadarClient:
           exts, exts_not, categories, categories_not, file_name, file_name_not, folder_name,
           include_terms or ingested_at_* (folder_name_not and exclude_terms only narrow a
           selection).
-        - q_exact=True matches q on word boundaries ("4.4.4.4" no longer matches "4.4.4.400").
+        - q_exact=True matches q and every include_terms value on word boundaries ("4.4.4.4" no
+          longer matches "4.4.4.400").
         - include_terms must ALL be present on top of q; exclude_terms drop a block.
         - file_name/folder_name `*_match_type`: "contains" (default), "starts_with", "ends_with" or "exact".
         - force_and=True requires every file_name / folder_name value instead of any.

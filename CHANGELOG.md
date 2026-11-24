@@ -4,6 +4,19 @@
 
 ### Added
 
+- `added_from` / `added_to` on the domain methods: `get_domain_all()`, `get_domain_employees()`,
+  `get_domain_customers()`, `get_domain_third_parties()`, `export_domain_leaks()`,
+  `unlock_domain_leaks()` and `queue_domain_unlock_task()`. They keep only the leaks LeakRadar
+  indexed in that window (ISO 8601 string, `date` or `datetime`, both bounds inclusive), so a
+  scheduled job can ask for what is new instead of reading a whole domain again. Live on the
+  API since 2026-11-24.
+- `exact` in the `*_match_type` arguments of `search_advanced()`, `search_combolist_advanced()` and
+  the methods that take the same filters (exports, unlock tasks, advanced monitors, unlocked
+  lists): the whole value must match, without regard to case. `url_domain="example.com"` with
+  `url_domain_match_type="exact"` no longer returns `notexample.com`, and it is the cheapest
+  mode for the API. With `force_and=True` a field in exact mode takes a single value (a record
+  holds one), otherwise the API answers 422. `AdvancedTextMatchType` in `leakradar.types` has
+  the new value. Live on the API since 2026-11-24.
 - `locate_combolist_source()`: `GET /search/combolist/{credential_id}/source`, the raw file a
   combolist pair was first seen in and the part of that file holding it, to pass to
   `raw_get_part()`. It needs the Combolists dataset and Raw search, works on locked pairs and
@@ -11,6 +24,15 @@
 - `leakradar.types` follows the API: `source` on the combolist results (`CombolistSourceFile`),
   `CombolistSourceLocation`, `CombolistSourceResponse`, and `size_bytes` on the items of
   `list_raw_files()`.
+- `leakradar.types` follows the API again: `also_in` and `also_in_total` on the results of
+  `raw_search()` (`RawArchiveRef`, the other source files that hold the same file), `removed` on
+  the items of a monitoring run, and `unlocked` in the concurrency limits of `rate_limits()`.
+
+### Changed
+
+- Documentation only: `q_exact` of `raw_search()` applies to `q` and to every `include_terms`
+  value, as the API has always done. With `q_exact` or `dedup`, a page can be shorter than
+  `page_size`, or empty, while `has_more` is true: `paginate()` already follows `next_cursor`.
 
 ## 0.3.0 (2026-11-05)
 

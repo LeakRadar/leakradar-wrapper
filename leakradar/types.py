@@ -136,6 +136,7 @@ __all__ = [
     "RateLimitRefusals",
     "RateLimitsResponse",
     "RawAlertDelivery",
+    "RawArchiveRef",
     "RawCountResponse",
     "RawDesindexInfo",
     "RawDownloadPreviewResponse",
@@ -210,8 +211,11 @@ __all__ = [
 ]
 
 
-AdvancedTextMatchType = Literal["contains", "starts_with", "ends_with"]
-"""How a text filter value matches: `contains` (default), `starts_with` or `ends_with`."""
+AdvancedTextMatchType = Literal["contains", "starts_with", "ends_with", "exact"]
+"""
+How a text filter value matches: `contains` (default), `starts_with`, `ends_with` or `exact` (the
+whole value).
+"""
 
 
 class AllLeakDetails(TypedDict, total=False):
@@ -821,6 +825,10 @@ class DomainExportBody(TypedDict, total=False):
     search: Optional[str]
     is_email: Optional[bool]
     format: Optional["ExportFormatEnum"]
+    added_from: Optional[str]
+    """Only export leaks indexed on/after this UTC datetime (ISO 8601, inclusive)."""
+    added_to: Optional[str]
+    """Only export leaks indexed on/before this UTC datetime (ISO 8601, inclusive)."""
 
 
 class DomainMassRequest(TypedDict, total=False):
@@ -1196,7 +1204,8 @@ class LeakSearchFilters(TypedDict, total=False):
     """
     Advanced text values are literal, including *, ? and backslash.
 
-    Use contains, starts_with or ends_with to select the matching mode.
+    Use contains, starts_with, ends_with or exact to select the matching mode.
+    Exact compares the whole value (case-insensitive, like the other modes).
     """
 
     username: Optional[List[str]]
@@ -1871,6 +1880,12 @@ class PaginatedRunItemsResponse(TypedDict, total=False):
     """Number of items per page."""
     item_type: Optional[str]
     """Primary item type in this run: 'leak', 'raw', or 'dark_web'."""
+    removed: int
+    """
+    Results of this run that are no longer available: their source record was removed after the
+    alert was sent. They are left out of `items`. Counted over the whole run for credential results,
+    over the returned page for dark web posts.
+    """
 
 
 class PaginatedUnlockedCombolistsResponse(TypedDict, total=False):
@@ -2119,6 +2134,11 @@ class ProfileUpdate(TypedDict, total=False):
 class RateLimitConcurrency(TypedDict, total=False):
     raw: "RateLimitConcurrencySlot"
     advanced: "RateLimitConcurrencySlot"
+    unlocked: "RateLimitConcurrencySlot"
+    """
+    Requests on your unlocked lists (`/profile/unlocked` and `/profile/unlocked/combolists`, with or
+    without advanced filters) running at the same time. The limit is the same on every plan.
+    """
 
 
 class RateLimitConcurrencySlot(TypedDict, total=False):
@@ -2222,6 +2242,19 @@ class RawAlertDelivery(TypedDict, total=False):
     """The alert. Every webhook body wraps it under `leaks`."""
 
 
+class RawArchiveRef(TypedDict, total=False):
+    container_id: str
+    """Identifier of the other source file."""
+    entry_path: str
+    """Path of the same file inside that source file."""
+    original_file_name: Optional[str]
+    """Name of that source file."""
+    category: Optional[str]
+    """Leak category of that source file."""
+    added_at: Optional[str]
+    """ISO timestamp of the day that source file was indexed."""
+
+
 class RawCountResponse(TypedDict, total=False):
     total: int
     """
@@ -2322,9 +2355,10 @@ RawMatchType = Literal["contains", "starts_with", "ends_with", "exact"]
 """
 How a raw file-name or folder value is matched.
 
-Separate from AdvancedTextMatchType on purpose: raw has an EXACT mode the
-stealer fields do not, and adding it there would widen a contract that
-seven surfaces already depend on.
+Separate from AdvancedTextMatchType on purpose: the two share their four
+values since 1.4.9.8, but `exact` does not mean the same thing here (a
+whole entry name, or a whole folder at any depth of a path) and the raw
+fields keep their own legacy booleans.
 """
 
 
@@ -2357,6 +2391,14 @@ class RawSearchItem(TypedDict, total=False):
     """Indicates if the user has already unlocked this block or the parent file."""
     matching_lines: List[str]
     """Lines from the block content that contain the queried text (export only)."""
+    also_in: List["RawArchiveRef"]
+    """
+    Other source files proven to hold this same file, byte for byte (most recent first, at most 12).
+    Identical content is stored once: it is returned as one result that lists every source file it
+    was seen in.
+    """
+    also_in_total: int
+    """Number of other source files that hold this same file (`also_in` may list fewer)."""
 
 
 class RawSearchRequest(TypedDict, total=False):
@@ -2434,8 +2476,9 @@ class RawSearchRequest(TypedDict, total=False):
     """
     q_exact: Optional[bool]
     """
-    When true, the q term must match on word boundaries: '4.4.4.4' will not match '4.4.4.400'.
-    Applied as a content post-filter (no effect without q).
+    When true, q and every include_terms value must match on word boundaries: '4.4.4.4' will not
+    match '4.4.4.400'. A page can then hold fewer items than page_size, or none, while has_more is
+    true: follow next_cursor until has_more is false.
     """
     include_terms: Optional[List[str]]
     """
@@ -2466,7 +2509,10 @@ class RawSearchResponse(TypedDict, total=False):
     page_size: int
     """Maximum number of items returned in this page."""
     has_more: Optional[bool]
-    """True if more results are available."""
+    """
+    True if more results are available. With `q_exact` or `dedup`, a page can be shorter than
+    `page_size`, or empty, while this is true: keep following `next_cursor`.
+    """
     next_cursor: Optional[str]
     """Pass it as `cursor` to get the next page (null on the last page)."""
     blacklisted_value: Optional[str]
@@ -2474,7 +2520,9 @@ class RawSearchResponse(TypedDict, total=False):
     container_desindexed: Optional["RawDesindexInfo"]
     """
     Set when `container_id` targets a file removed from raw search because its content is already
-    indexed elsewhere: search its originals instead.
+    indexed elsewhere AND the search could not be run on that content for it (file not purged yet,
+    or too many files inside): search its originals instead. Usually null: such a file is searched
+    through the files that hold its content and answered under its own paths.
     """
 
 
